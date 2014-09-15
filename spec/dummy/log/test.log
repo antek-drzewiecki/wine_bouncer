@@ -1,0 +1,6 @@
+Started GET "/api/protected" for 127.0.0.1 at 2014-09-15 16:38:17 +0200
+Started GET "/unprotected" for 127.0.0.1 at 2014-09-15 16:38:17 +0200
+Started GET "/api/protected" for 127.0.0.1 at 2014-09-15 16:38:44 +0200
+Started GET "/unprotected" for 127.0.0.1 at 2014-09-15 16:38:44 +0200
+Started GET "/api/protected" for 127.0.0.1 at 2014-09-15 16:38:57 +0200
+Started GET "/unprotected" for 127.0.0.1 at 2014-09-15 16:38:57 +0200
