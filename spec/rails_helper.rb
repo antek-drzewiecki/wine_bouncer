@@ -54,7 +54,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ApiHelper, :type=>:api
 
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
 
   config.infer_spec_type_from_file_location!

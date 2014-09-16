@@ -7,11 +7,11 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 
+require "wine_bouncer"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require 'doorkeeper'
-require "wine_bouncer"
+
 
 module Dummy
   class Application < Rails::Application
