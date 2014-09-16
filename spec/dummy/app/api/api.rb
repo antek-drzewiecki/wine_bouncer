@@ -1,11 +1,10 @@
 module Api
 
-
   ###
   # Api under test, default doorkeeper scope is 'account'
   ##
   class MountedApiUnderTest < Grape::API
-    desc 'Document root', authorizations: { oauth2: [{ scope: 'account', description: 'anything' }] }
+    desc 'Document root', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
     get '/protected' do
       { hello: 'world' }
     end
@@ -16,9 +15,9 @@ module Api
     get '/unprotected' do
       { hello: 'unprotected world' }
     end
-    desc 'Document root', authorizations: { oauth2: [{ scope: 'account', description: 'anything' }] }
+    desc 'Document root', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
     get '/protected_user' do
-      { hello: current_user.login }
+      { hello: current_user.name }
     end
     desc 'Document root', authorizations: { oauth2: [] }
     get '/protected_without_scope' do

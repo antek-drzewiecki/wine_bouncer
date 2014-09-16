@@ -15,3 +15,7 @@
 mkmf.log
 .rvmrc
 .DS_Store
+log/*.log
+spec/dummy/db/*.sqlite3
+spec/dummy/log/*.log
+spec/dummy/tmp/
