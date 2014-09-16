@@ -8,3 +8,5 @@ task :default => :spec
 
 desc "Run all specs"
 RSpec::Core::RakeTask.new(:spec)
+
+Bundler::GemHelper.install_tasks

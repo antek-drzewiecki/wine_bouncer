@@ -1,5 +1,8 @@
 # WineBouncer
 
+[![Build Status](https://travis-ci.org/Antek-drzewiecki/wine_bouncer.svg?branch=master)](https://travis-ci.org/Antek-drzewiecki/wine_bouncer)
+
+
 TODO: Write a gem description
 
 ## Installation
