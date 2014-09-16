@@ -1,8 +1,9 @@
 require 'grape'
-
-require "wine_bouncer/version"
-require "wine_bouncer/errors"
-require "wine_bouncer/oauth2"
+require 'doorkeeper'
+require 'wine_bouncer/version'
+require 'wine_bouncer/errors'
+require 'wine_bouncer/oauth2'
+require 'wine_bouncer/auth_methods/auth_methods'
 
 module WineBouncer
 end
