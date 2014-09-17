@@ -4,22 +4,27 @@ module Api
   # Api under test, default doorkeeper scope is 'account'
   ##
   class MountedSwaggerApiUnderTest < Grape::API
-    desc 'Document root', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
+    desc 'Protected method with public', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
     get '/protected' do
       { hello: 'world' }
     end
-    desc 'Document root', authorizations: { oauth2: [{ scope: 'private', description: 'anything' }] }
+
+    desc 'Protected method with private', authorizations: { oauth2: [{ scope: 'private', description: 'anything' }] }
     get '/protected_with_private_scope' do
       { hello: 'scoped world' }
     end
+
+    desc 'Unprotected method'
     get '/unprotected' do
       { hello: 'unprotected world' }
     end
-    desc 'Document root', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
+
+    desc 'Protected method with public that returns the user name', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
     get '/protected_user' do
-      { hello: current_user.name }
+      { hello: resource_owner.name }
     end
-    desc 'Document root', authorizations: { oauth2: [] }
+
+    desc 'This method uses Doorkeepers default scopes', authorizations: { oauth2: [] }
     get '/protected_without_scope' do
       { hello: 'protected unscoped world' }
     end

@@ -15,7 +15,6 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
 
   context 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
-      puts  WineBouncer.configuration.auth_strategy
       get '/default_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
       expect(last_response.status).to eq(200)
@@ -77,7 +76,7 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
     end
   end
 
-  context 'current_user' do
+  context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/default_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 

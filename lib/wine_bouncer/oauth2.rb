@@ -8,7 +8,6 @@ module WineBouncer
       env['api.endpoint']
     end
 
-
     ############
     # DoorKeeper stuff.
     ############
@@ -19,7 +18,6 @@ module WineBouncer
     def doorkeeper_request=(env)
       @_doorkeeper_request = ActionDispatch::Request.new(env)
     end
-
 
     ###
     # Returns the request context.
@@ -101,13 +99,14 @@ module WineBouncer
     ###
     def before
       set_auth_strategy(WineBouncer.configuration.auth_strategy)
-      return unless endpoint_protected?
+      #extend the context with auth methods.
+      context.extend(WineBouncer::AuthMethods)
+      context.protected_endpoint = endpoint_protected?
+      return unless context.protected_endpoint?
       self.doorkeeper_request= env # set request for later use.
       doorkeeper_authorize! *auth_scopes
-      env['api.endpoint'].extend(WineBouncer::AuthMethods)
-      env['api.endpoint'].doorkeeper_access_token = doorkeeper_token
+      context.doorkeeper_access_token = doorkeeper_token
     end
-
 
     ###
     # Strategy
@@ -119,7 +118,7 @@ module WineBouncer
     private
 
     def set_auth_strategy(strategy)
-      @auth_strategy = Object.const_get("WineBouncer::AuthStrategies::#{strategy.to_s.capitalize}").new
+      @auth_strategy = WineBouncer::AuthStrategies.const_get("#{strategy.to_s.capitalize}").new
     end
 
   end

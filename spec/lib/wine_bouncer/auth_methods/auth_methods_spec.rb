@@ -48,4 +48,40 @@ describe ::WineBouncer::AuthMethods do
       expect(tested_class.has_doorkeeper_token?).to be false
     end
   end
+
+  context 'client_credential_token?' do
+    it 'return true if the doorkeeper token is aquired through client_credential authentication' do
+      token.resource_owner_id = nil
+      tested_class.doorkeeper_access_token = token
+      expect(tested_class.client_credential_token?).to be true
+    end
+
+    it 'return false if no token is set' do
+      token.resource_owner_id = nil
+      tested_class.doorkeeper_access_token
+      expect(tested_class.client_credential_token?).to be false
+    end
+
+    it 'return false if the token has a resource_owner' do
+      token.resource_owner_id = 2
+      tested_class.doorkeeper_access_token= token
+      expect(tested_class.client_credential_token?).to be false
+    end
+  end
+
+  context 'protected_endpoint?' do
+    it 'when set true it returns true' do
+      tested_class.protected_endpoint= true
+      expect(tested_class.protected_endpoint?).to be true
+    end
+
+    it 'when set false it returns false' do
+      tested_class.protected_endpoint= false
+      expect(tested_class.protected_endpoint?).to be false
+    end
+
+    it 'defaults returns false if not set' do
+      expect(tested_class.protected_endpoint?).to be false
+    end
+  end
 end

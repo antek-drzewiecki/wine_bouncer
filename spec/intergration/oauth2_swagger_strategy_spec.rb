@@ -78,7 +78,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'current_user' do
+  context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/swagger_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 

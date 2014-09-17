@@ -21,7 +21,7 @@ module WineBouncer
       end
 
       def endpoint_authorizations(context)
-         context[:authorizations]
+         context[:auth]
       end
     end
   end
