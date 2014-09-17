@@ -8,9 +8,9 @@ module WineBouncer
       env['api.endpoint']
     end
 
-    ###
+    ############
     # DoorKeeper stuff.
-    ###
+    ############
 
     ###
     # Sets and converts a rack request to a ActionDispatch request, which is required for DoorKeeper to function.
@@ -18,7 +18,6 @@ module WineBouncer
     def doorkeeper_request=(env)
       @_doorkeeper_request = ActionDispatch::Request.new(env)
     end
-
 
     ###
     # Returns the request context.
@@ -41,31 +40,26 @@ module WineBouncer
       doorkeeper_token && doorkeeper_token.acceptable?(scopes)
     end
 
-    ###
+    ############
     # Authorization control.
-    ###
+    ############
 
     ###
     # Returns true if the Api endpoint, method is configured as an protected method, false otherwise.
     ###
-    def has_authorizations?
-      context && context.options && context.options[:route_options] && endpoint_authorizations
+    def valid_route_context?
+      context && context.options && context.options[:route_options]
     end
 
-    ###
-    # Returns the endpoint authorizations hash.
-    # This hash contains all authorization methods.
-    ###
-    def endpoint_authorizations
-      @_authorizations ||= context.options[:route_options][:authorizations]
+    def route_context
+      context.options[:route_options]
     end
 
     ###
     # returns true if the endpoint is protected, otherwise false
-    # Currently it only accepts oauth2.
     ###
     def endpoint_protected?
-      has_authorizations? && !!endpoint_authorizations[:oauth2]
+      auth_strategy.endpoint_protected?(route_context)
     end
 
     ###
@@ -73,8 +67,8 @@ module WineBouncer
     # [ nil ] if none, otherwise an array of [ :scopes ]
     ###
     def auth_scopes
-      return *nil if endpoint_authorizations[:oauth2].empty?
-      endpoint_authorizations[:oauth2].map{|hash| hash[:scope].to_sym}
+      return *nil unless auth_strategy.has_auth_scopes?(route_context)
+      auth_strategy.auth_scopes(route_context)
     end
 
     ###
@@ -96,19 +90,35 @@ module WineBouncer
       end
     end
 
-    ###
+    ############
     # Grape middleware methods
-    ###
+    ############
 
     ###
     # Before do.
     ###
     def before
-      return unless endpoint_protected?
+      set_auth_strategy(WineBouncer.configuration.auth_strategy)
+      #extend the context with auth methods.
+      context.extend(WineBouncer::AuthMethods)
+      context.protected_endpoint = endpoint_protected?
+      return unless context.protected_endpoint?
       self.doorkeeper_request= env # set request for later use.
       doorkeeper_authorize! *auth_scopes
-      env['api.endpoint'].extend(WineBouncer::AuthMethods)
-      env['api.endpoint'].doorkeeper_access_token = doorkeeper_token
+      context.doorkeeper_access_token = doorkeeper_token
+    end
+
+    ###
+    # Strategy
+    ###
+    def auth_strategy
+      @auth_strategy
+    end
+
+    private
+
+    def set_auth_strategy(strategy)
+      @auth_strategy = WineBouncer::AuthStrategies.const_get("#{strategy.to_s.capitalize}").new
     end
 
   end
