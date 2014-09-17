@@ -38,7 +38,10 @@ And then execute:
 
 ```ruby
 bundle
-```    
+```
+
+## Upgrading
+When upgrading from a previous version, see [UPGRADING](UPGRADING.md). You might also be interested at the [CHANGELOG](CHANGELOG.md).
 
 ## Usage
 WineBouncer is a custom Grape Middleware used for Authentication and Authorization. We assume you have a Grape API mounted in your Rails application together with Doorkeeper.  
@@ -151,7 +154,7 @@ Then you can start documenting and protecting your API like the example below.
     
     desc 'It even works with other options!', 
     authorizations: { oauth2: [] },
-    :entity => Api::Entities::Installation,
+    :entity => Api::Entities::Response,
     http_codes: [  
         [200, 'OK', Api::Entities::Response],
         [401, 'Unauthorized', Api::Entities::Error],
