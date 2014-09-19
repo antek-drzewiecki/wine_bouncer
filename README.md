@@ -199,14 +199,15 @@ This gem raises the following exceptions which can be handled in your Grape API,
 
 ## Development
 
-Todo: write instructions..
+Since we want the gem tested against several rails versions we use the same way to prepare our development environment as Doorkeeper. 
+
+To install the development environment for rails 3.2.18, you can also specify a different rails version to test against.
+
+`rails=3.2.18 bundle install`
+
+To run the specs.
+
+`rails=3.2.18 bundle exec rake`
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/wine_bouncer/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write Tests and/or Code. Code without tests will not be accepted. 
-4. Write documentation.
-5. Commit your changes (`git commit -am 'Add some feature'`)
-6. Push to the branch (`git push origin my-new-feature`)
-7. Create a new Pull Request
