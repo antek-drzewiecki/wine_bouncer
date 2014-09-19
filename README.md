@@ -72,7 +72,7 @@ Currently the following strategies are included:
 ### Authentication strategies
 
 #### Default
-The default strategy uses the `auth:` key in the description options hash to define API method authentication. It accepts an array of scopes for authorization.
+The default strategy uses the `auth:` key in the description options hash to define API method authentication. It accepts an hash with options. Currently the only option is for scopes which is an array of scopes for authorization.
 WineBouncer uses the default Doorkeeper behaviour for scopes.
 
 Example:
@@ -80,7 +80,7 @@ Example:
 ``` ruby
  class MyAwesomeAPI < Grape::API
     desc 'protected method with required public scope', 
-    auth: [{ scope: 'public' }]
+    auth: { scopes: ['public'] }
     get '/protected' do
        { hello: 'world' }
     end
@@ -91,13 +91,13 @@ Example:
     end
     
     desc 'This method needs the public or private scope.',
-    auth: [{ scope: 'public' }, { scope: 'private' }]
+    auth: { scopes: [ 'public', 'private' ] }
     get '/method' do
       { hello: 'public or private user.' }
     end
     
     desc 'This method uses Doorkeepers default scopes.', 
-    auth: []
+    auth: { scopes: [] } 
     get '/protected_with_default_scope' do
        { hello: 'protected unscoped world' }
     end

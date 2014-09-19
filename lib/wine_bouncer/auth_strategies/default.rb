@@ -7,11 +7,11 @@ module WineBouncer
       end
 
       def has_auth_scopes?(context)
-        has_authorizations?(context) && !endpoint_authorizations(context).empty?
+        has_authorizations?(context) && endpoint_authorizations(context).has_key?(:scopes) && !endpoint_authorizations(context)[:scopes].empty?
       end
 
       def auth_scopes(context)
-        endpoint_authorizations(context).map { |x| x[:scope].to_sym }
+        endpoint_authorizations(context)[:scopes].map(&:to_sym)
       end
 
       private
