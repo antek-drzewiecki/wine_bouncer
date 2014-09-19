@@ -5,12 +5,13 @@
 [![Gem Version](https://badge.fury.io/rb/wine_bouncer.svg)](http://badge.fury.io/rb/wine_bouncer)
 
 Protect your precious Grape API with Doorkeeper. 
-WineBouncer uses minimal modification,  to make the magic happen.
+WineBouncer uses minimal modification, to make the magic happen.
 
 Table of Contents
 =================
   * [Requirements](#requirements)
   * [Installation](#installation)
+  * [Upgrading](#upgrading)
   * [Usage](#usage)
     * [Authentication strategies](#authentication-strategies)
       * [Default](#default)
@@ -211,3 +212,4 @@ To run the specs.
 
 ## Contributing
 
+For contributing to the gem see [CONTRIBUTING](CONTRIBUTING.md).
