@@ -1,6 +1,6 @@
 # WineBouncer
 
-[![Build Status](https://travis-ci.org/Antek-drzewiecki/wine_bouncer.svg?branch=master)](https://travis-ci.org/Antek-drzewiecki/wine_bouncer)
+[![Build Status](https://travis-ci.org/antek-drzewiecki/wine_bouncer.svg?branch=master)](https://travis-ci.org/antek-drzewiecki/wine_bouncer)
 [![Code Climate](https://codeclimate.com/github/Antek-drzewiecki/wine_bouncer/badges/gpa.svg)](https://codeclimate.com/github/Antek-drzewiecki/wine_bouncer)
 [![Gem Version](https://badge.fury.io/rb/wine_bouncer.svg)](http://badge.fury.io/rb/wine_bouncer)
 
