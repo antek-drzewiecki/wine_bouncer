@@ -7,10 +7,14 @@ rvm:
   - 2.0
   - 2.1
 env:
-  - rails=3.1.12
-  - rails=3.2.18
-  - rails=4.0.5
-  - rails=4.1.1
+  - rails=3.1.12 grape=0.8.0
+  - rails=3.2.18 grape=0.8.0
+  - rails=4.0.5 grape=0.8.0
+  - rails=4.1.1 grape=0.8.0
+  - rails=3.1.12 grape=0.9.0
+  - rails=3.2.18 grape=0.9.0
+  - rails=4.0.5 grape=0.9.0
+  - rails=4.1.1 grape=0.9.0
 addons:
   code_climate:
     repo_token: f010f83a5eb6671c85aaa0aec44c1fd43404537a4f4898d1b9ab248ac8a1487d
