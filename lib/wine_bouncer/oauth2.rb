@@ -79,14 +79,13 @@ module WineBouncer
       unless valid_doorkeeper_token?(*scopes)
         if !doorkeeper_token || !doorkeeper_token.accessible?
           error = Doorkeeper::OAuth::InvalidTokenResponse.from_access_token(doorkeeper_token)
+          # TODO: localization and better error reporting
           raise WineBouncer::Errors::OAuthUnauthorizedError, 'unauthorized'
         else
           error = Doorkeeper::OAuth::ForbiddenTokenResponse.from_scopes(scopes)
+          # TODO: localization and better error reporting
           raise WineBouncer::Errors::OAuthForbiddenError, "missing permissions"
         end
-
-        # headers.merge!(error.headers.reject { |k| ['Content-Type'].include? k })
-        # doorkeeper_error_renderer(error, options)
       end
     end
 

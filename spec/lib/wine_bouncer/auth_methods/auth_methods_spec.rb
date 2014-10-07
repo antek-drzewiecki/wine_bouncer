@@ -15,7 +15,6 @@ describe ::WineBouncer::AuthMethods do
       tested_class.doorkeeper_access_token = token
       expect(tested_class.doorkeeper_access_token).to eq(token)
     end
-
   end
 
   context 'has_resource_owner?' do
@@ -82,6 +81,26 @@ describe ::WineBouncer::AuthMethods do
 
     it 'defaults returns false if not set' do
       expect(tested_class.protected_endpoint?).to be false
+    end
+  end
+
+
+  context 'resource_owner' do
+    it 'runs the configured block' do
+      result = 'called block'
+      foo = Proc.new { result }
+
+      WineBouncer.configure do |c|
+        c.auth_strategy = :default
+        c.define_resource_owner &foo
+      end
+
+      expect(tested_class.resource_owner).to be(result)
+    end
+
+    it 'raises an argument error when the block is not configured' do
+      WineBouncer.configuration= WineBouncer::Configuration.new
+      expect { tested_class.resource_owner }.to raise_error(WineBouncer::Errors::UnconfiguredError)
     end
   end
 end

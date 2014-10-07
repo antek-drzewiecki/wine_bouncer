@@ -11,6 +11,10 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
   before (:example) do
     WineBouncer.configure do |c|
       c.auth_strategy = :swagger
+
+      c.define_resource_owner do
+        User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+      end
     end
   end
 

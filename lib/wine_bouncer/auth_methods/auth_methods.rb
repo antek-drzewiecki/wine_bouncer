@@ -11,7 +11,7 @@ module WineBouncer
     end
 
     def resource_owner
-      User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+       instance_eval(&WineBouncer.configuration.defined_resource_owner)
     end
 
     def client_credential_token?
