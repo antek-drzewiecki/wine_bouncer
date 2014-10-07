@@ -23,9 +23,9 @@ Table of Contents
 
 
 ## Requirements
-- Ruby >1.9.3
+- Ruby > 1.9.3
 - Doorkeeper > 1.4.0
-- Grape > 0.8.0
+- Grape > 0.8
 
 ## Installation
 
@@ -52,6 +52,10 @@ To get started with WineBouncer, create a rails initializer in your Rails app at
 ``` ruby
 WineBouncer.configure do |config|
     config.auth_strategy = :default
+
+    config.define_resource_owner do
+        User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+    end
 end
 ```
 
@@ -126,58 +130,59 @@ Run `bundle` to install the missing gems.
 Create a rails initializer in your Rails app at `config/initializers/wine_bouncer.rb` with the following configuration.
 
 ``` ruby
-    WineBouncer.configure do |config|
-        config.auth_strategy = :swagger
+WineBouncer.configure do |config|
+    config.auth_strategy = :swagger
+
+    config.define_resource_owner do
+            User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
     end
+end
 ```
 
 Then you can start documenting and protecting your API like the example below.
 
 ``` ruby
+class MyAwesomeAPI < Grape::API
+   desc 'protected method with required public scope',
+   authorizations: { oauth2: [{ scope: 'public' }] }
+   get '/protected' do
+      { hello: 'world' }
+   end
 
- class MyAwesomeAPI < Grape::API
-    desc 'protected method with required public scope', 
-    authorizations: { oauth2: [{ scope: 'public' }] }
-    get '/protected' do
-       { hello: 'world' }
-    end
-    
-    desc 'Unprotected method'
-    get '/unprotected' do
-      { hello: 'unprotected world' }
-    end
-    
-    desc 'This method uses Doorkeepers default scopes.', 
-    authorizations: { oauth2: [] }
-    get '/protected_with_default_scope' do
-       { hello: 'protected unscoped world' }
-    end
-    
-    desc 'It even works with other options!', 
-    authorizations: { oauth2: [] },
-    :entity => Api::Entities::Response,
-    http_codes: [  
-        [200, 'OK', Api::Entities::Response],
-        [401, 'Unauthorized', Api::Entities::Error],
-        [403, 'Forbidden', Api::Entities::Error]
-    ],     
-    :notes => <<-NOTE
-    
-    Marked down notes!
-    
-    NOTE
-    get '/extended_api' do
-       { hello: 'Awesome world' }
-    end
- end
- 
- class Api < Grape::API
-    default_format :json
-    format :json
-    use ::WineBouncer::OAuth2
-    mount MyAwesomeAPI
-    add_swagger_documentation
- end
+   desc 'Unprotected method'
+   get '/unprotected' do
+     { hello: 'unprotected world' }
+   end
+
+   desc 'This method uses Doorkeepers default scopes.',
+   authorizations: { oauth2: [] }
+   get '/protected_with_default_scope' do
+      { hello: 'protected unscoped world' }
+   end
+
+   desc 'It even works with other options!',
+   authorizations: { oauth2: [] },
+   :entity => Api::Entities::Response,
+   http_codes: [
+       [200, 'OK', Api::Entities::Response],
+       [401, 'Unauthorized', Api::Entities::Error],
+       [403, 'Forbidden', Api::Entities::Error]
+   ],
+   :notes => <<-NOTE
+   Marked down notes!
+   NOTE
+   get '/extended_api' do
+      { hello: 'Awesome world' }
+   end
+end
+
+class Api < Grape::API
+   default_format :json
+   format :json
+   use ::WineBouncer::OAuth2
+   mount MyAwesomeAPI
+   add_swagger_documentation
+end
 ```
 
 The Swagger strategy uses the `authorizations: { oauth2: [] }` in the method description syntax to define API method authentication and authorization.
