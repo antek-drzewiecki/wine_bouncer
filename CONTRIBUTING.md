@@ -1,8 +1,6 @@
 Changelog
 =========
 
-
-
 ## Fork the project
 
 Fork the project on the [project page]( https://github.com/Antek-drzewiecki/wine_bouncer/fork )
@@ -53,6 +51,5 @@ Push to the branch.
 ## Create a pull request
 
 Check your feature branch, once its passes Travis-CI, create a pull request
-
 
 Thanks you for participating!

@@ -2,7 +2,7 @@ Upgrading WineBouncer
 =====================
 
 
-### Upgrading to >= 0.1.3
+### Upgrading to >= 0.2.0
 
 To use the `resource_owner` you now need to define how WineBouncer gets the resource owner. In most cases he needs to return the User that is logged in, but not in all cases.
 You now additionally need to specify `define_resource_owner` in your configuration. Mostly this the following code will work:
