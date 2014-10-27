@@ -2,11 +2,13 @@ source 'https://rubygems.org'
 
 ENV['grape'] ||= '0.9.0'
 ENV['rails'] ||= '4.1.1'
+ENV['doorkeeper'] ||= '1.4.0'
 
 gem 'rails', ENV['rails']
 
 gem 'activerecord'
 gem 'grape', ENV['grape']
+gem 'doorkeeper', ENV['doorkeeper']
 
 gem "codeclimate-test-reporter", group: :test, require: nil
 
