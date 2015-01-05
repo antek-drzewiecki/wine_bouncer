@@ -7,9 +7,6 @@ require 'rspec/rails'
 require 'wine_bouncer'
 require 'factory_girl'
 require 'database_cleaner'
-require "codeclimate-test-reporter"
-
-CodeClimate::TestReporter.start
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
