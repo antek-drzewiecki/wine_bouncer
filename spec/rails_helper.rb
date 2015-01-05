@@ -40,12 +40,14 @@ module ApiHelper
   end
 end
 
+def orm_name
+  orm = Doorkeeper.configuration.orm
+  [:mongoid2, :mongoid3, :mongoid4].include?(orm.to_sym) ? :mongoid : orm
+end
 
-require "shared/orm/#{Doorkeeper.configuration.orm_name}"
+require "shared/orm/#{orm_name}"
 
 FactoryGirl.find_definitions
-
-
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
