@@ -207,6 +207,21 @@ This gem raises the following exceptions which can be handled in your Grape API,
 * `WineBouncer::Errors::OAuthForbiddenError` 
    when the token is found but scopes do not match.
 
+## Testing
+
+If you would like to stub an authenticated user for testing, you use something like [Mocha](https://github.com/freerange/mocha) to do something like this:
+
+```ruby
+def authenticated_user
+  token = mock()
+  user = users(:valid)
+  token.stubs(:acceptable?).returns(true)
+  token.stubs(:resource_owner_id).returns(user.id)
+  Doorkeeper.stubs(:authenticate).returns(token)
+  user
+end
+```
+
 ## Development
 
 Since we want the gem tested against several rails versions we use the same way to prepare our development environment as Doorkeeper. 
