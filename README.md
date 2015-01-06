@@ -62,6 +62,8 @@ end
 Then register WineBouncer as Grape middleware in your Grape API.
 
 ``` ruby
+require 'wine_bouncer'
+
 class Api < Grape::API
    default_format :json
    format :json
@@ -83,6 +85,8 @@ WineBouncer uses the default Doorkeeper behaviour for scopes.
 Example:
 
 ``` ruby
+require 'wine_bouncer'
+
  class MyAwesomeAPI < Grape::API
     desc 'protected method with required public scope', 
     auth: { scopes: ['public'] }
