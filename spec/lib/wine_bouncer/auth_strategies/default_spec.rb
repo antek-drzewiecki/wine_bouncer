@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'wine_bouncer/auth_strategies/default'
 
 describe ::WineBouncer::AuthStrategies::Default do
   subject(:klass) { ::WineBouncer::AuthStrategies::Default.new }
 
-  let(:scopes) { [ 'public', 'private' ] }
+  let(:scopes) { %w(public private) }
   let(:scopes_hash) { { scopes: scopes } }
   let(:auth_context) { { auth: scopes_hash } }
 
