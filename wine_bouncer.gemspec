@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec-rails", "~> 3.1.0"
   spec.add_development_dependency 'factory_girl', '~> 4.4.0'
+  spec.add_development_dependency "generator_spec", "~> 0.9.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "database_cleaner", "~> 1.3.0"
-
 end

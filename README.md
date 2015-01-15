@@ -47,15 +47,21 @@ When upgrading from a previous version, see [UPGRADING](UPGRADING.md). You might
 ## Usage
 WineBouncer is a custom Grape Middleware used for Authentication and Authorization. We assume you have a Grape API mounted in your Rails application together with Doorkeeper.
 
-To get started with WineBouncer, create a rails initializer in your Rails app at `config/initializers/wine_bouncer.rb` with the following configuration.
+To get started with WineBouncer, run the configuration initializer:
+
+```shell
+$ rails g wine_bouncer:initializer
+```
+
+This creates a rails initializer in your Rails app at `config/initializers/wine_bouncer.rb` with the following configuration:
 
 ``` ruby
 WineBouncer.configure do |config|
-    config.auth_strategy = :default
+  config.auth_strategy = :default
 
-    config.define_resource_owner do
-        User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
-    end
+  config.define_resource_owner do
+    User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+  end
 end
 ```
 
