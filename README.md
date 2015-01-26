@@ -16,6 +16,7 @@ Table of Contents
     * [Authentication strategies](#authentication-strategies)
       * [Default](#default)
       * [Swagger](#swagger)
+      * [Protected](#protected)
     * [Token information](#token-information)
   * [Exceptions and Exception handling](#exceptions-and-exception-handling)
   * [Development](#development)
@@ -195,6 +196,48 @@ The Swagger strategy uses the `authorizations: { oauth2: [] }` in the method des
 It defaults assumes when no description is given that no authorization should be used like the `/unprotected` method.
 When the authentication syntax is mentioned in the method description, the method will be protected.
 You can use the default scopes of Doorkeeper by just adding `authorizations: { oauth2: [] }` or state your own scopes with `authorizations: { oauth2: [ { scope: 'scope1' }, { scope: 'scope2' }, ... ] }`.
+
+#### Protected
+
+The protected strategy protects all end points by default. It assumes the default scope but can be decorated using the `auth:` key. It accepts an array of scopes. To make an end point public,
+do `auth: false`.
+
+Example:
+
+``` ruby
+ class MyAwesomeAPI < Grape::API
+    desc 'protected method with required public scope', 
+    auth: [:public]
+    get '/protected' do
+       { hello: 'world' }
+    end
+    
+    desc 'Unprotected method'
+    get '/unprotected', auth: false do
+      { hello: 'unprotected world' }
+    end
+    
+    desc 'This method needs the public or private scope.',
+    auth: [:public, :private]
+    # Doorkeeper's default scope is [:public, :private] so auth can be omitted. See next example.
+    get '/method' do
+      { hello: 'public or private user.' }
+    end
+    
+    desc 'This method uses Doorkeepers default scopes.'
+    get '/protected_with_default_scope' do
+       { hello: 'protected unscoped world' }
+    end
+ end
+ 
+ class Api < Grape::API
+    default_format :json
+    format :json
+    use ::WineBouncer::OAuth2
+    mount MyAwesomeAPI
+    add_swagger_documentation
+ end
+```
 
 ### Token information
 
