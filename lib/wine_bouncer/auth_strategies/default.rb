@@ -1,27 +1,29 @@
 module WineBouncer
   module AuthStrategies
-    class Default
+    class Default < ::WineBouncer::BaseStrategy
 
-      def endpoint_protected?(context)
-        has_authorizations?(context)
+      def endpoint_protected?
+        !!endpoint_authorizations
       end
 
-      def has_auth_scopes?(context)
-        has_authorizations?(context) && endpoint_authorizations(context).has_key?(:scopes) && !endpoint_authorizations(context)[:scopes].empty?
+      def has_auth_scopes?
+        !!endpoint_authorizations &&
+            endpoint_authorizations.has_key?(:scopes) &&
+            !endpoint_authorizations[:scopes].empty?
       end
 
-      def auth_scopes(context)
-        endpoint_authorizations(context)[:scopes].map(&:to_sym)
+      def auth_scopes
+        endpoint_authorizations[:scopes].map(&:to_sym)
       end
 
       private
 
-      def has_authorizations?(context)
-        !!endpoint_authorizations(context)
-      end
-
-      def endpoint_authorizations(context)
-         context[:auth]
+      def endpoint_authorizations
+        if WineBouncer.post_0_9_0_grape?
+          false
+        else
+          api_context.options[:route_options][:auth]
+        end
       end
     end
   end
