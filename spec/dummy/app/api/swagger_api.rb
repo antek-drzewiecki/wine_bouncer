@@ -5,11 +5,13 @@ module Api
   ##
   class MountedSwaggerApiUnderTest < Grape::API
     desc 'Protected method with public', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
+    # authenticate( { oauth2: [{ scope: 'public', description: 'anything' }] })
     get '/protected' do
       { hello: 'world' }
     end
 
     desc 'Protected method with private', authorizations: { oauth2: [{ scope: 'private', description: 'anything' }] }
+    # authenticate({ oauth2: [{ scope: 'private', description: 'anything' }] })
     get '/protected_with_private_scope' do
       { hello: 'scoped world' }
     end
@@ -20,11 +22,13 @@ module Api
     end
 
     desc 'Protected method with public that returns the user name', authorizations: { oauth2: [{ scope: 'public', description: 'anything' }] }
+    #authenticate({ oauth2: [{ scope: 'public', description: 'anything' }] })
     get '/protected_user' do
       { hello: resource_owner.name }
     end
 
     desc 'This method uses Doorkeepers default scopes', authorizations: { oauth2: [] }
+    # authenticate( { oauth2: [] })
     get '/protected_without_scope' do
       { hello: 'protected unscoped world' }
     end

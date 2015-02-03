@@ -7,7 +7,6 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "public" }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "" }
 
-
   before (:example) do
     WineBouncer.configure do |c|
       c.auth_strategy = :swagger
@@ -93,5 +92,4 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
       expect(json['hello']).to eq(user.name)
     end
   end
-
 end

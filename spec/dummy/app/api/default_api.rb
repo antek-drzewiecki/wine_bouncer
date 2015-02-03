@@ -28,6 +28,10 @@ module Api
     get '/protected_without_scope' do
       { hello: 'protected unscoped world' }
     end
+
+    get '/not_described_world' do
+      { hello: 'non described world' }
+    end
   end
 
   class DefaultApiUnderTest < Grape::API
