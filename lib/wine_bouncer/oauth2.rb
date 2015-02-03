@@ -30,7 +30,7 @@ module WineBouncer
     # Authenticates from a request and returns a valid or invalid token.
     ###
     def doorkeeper_token
-      @_doorkeeper_token ||= Doorkeeper.authenticate(doorkeeper_request,Doorkeeper.configuration.access_token_methods)
+      @_doorkeeper_token ||= Doorkeeper.authenticate(doorkeeper_request, Doorkeeper.configuration.access_token_methods)
     end
 
     ###
@@ -48,18 +48,29 @@ module WineBouncer
     # Returns true if the Api endpoint, method is configured as an protected method, false otherwise.
     ###
     def valid_route_context?
-      context && context.options && context.options[:route_options]
+      if Gem::Version.new(Grape::VERSION) > Gem::Version.new('0.9.0')
+        context && context.routes && context.routes[0] && context.routes[0].route_settings
+      else
+        context && context.options && context.options[:route_options]
+      end
+
     end
 
     def route_context
-      context.options[:route_options]
+      if Gem::Version.new(Grape::VERSION) > Gem::Version.new('0.9.0')
+        #context.routes[0].route_settings
+        context
+      else
+        context.options[:route_options]
+      end
+
     end
 
     ###
     # returns true if the endpoint is protected, otherwise false
     ###
     def endpoint_protected?
-      auth_strategy.endpoint_protected?(route_context)
+      auth_strategy.endpoint_protected?
     end
 
     ###
@@ -67,8 +78,8 @@ module WineBouncer
     # [ nil ] if none, otherwise an array of [ :scopes ]
     ###
     def auth_scopes
-      return *nil unless auth_strategy.has_auth_scopes?(route_context)
-      auth_strategy.auth_scopes(route_context)
+      return *nil unless auth_strategy.has_auth_scopes?
+      auth_strategy.auth_scopes
     end
 
     ###
@@ -98,6 +109,7 @@ module WineBouncer
     ###
     def before
       set_auth_strategy(WineBouncer.configuration.auth_strategy)
+      auth_strategy.api_context = context
       #extend the context with auth methods.
       context.extend(WineBouncer::AuthMethods)
       context.protected_endpoint = endpoint_protected?
