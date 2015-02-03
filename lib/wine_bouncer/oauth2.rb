@@ -44,7 +44,6 @@ module WineBouncer
     # Authorization control.
     ############
 
-
     ###
     # returns true if the endpoint is protected, otherwise false
     ###
