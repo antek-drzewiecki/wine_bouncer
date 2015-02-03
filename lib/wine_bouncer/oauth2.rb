@@ -44,28 +44,7 @@ module WineBouncer
     # Authorization control.
     ############
 
-    ###
-    # Returns true if the Api endpoint, method is configured as an protected method, false otherwise.
-    ###
-    def valid_route_context?
-      if Gem::Version.new(Grape::VERSION) > Gem::Version.new('0.9.0')
-        context && context.routes && context.routes[0] && context.routes[0].route_settings
-      else
-        context && context.options && context.options[:route_options]
-      end
-
-    end
-
-    def route_context
-      if Gem::Version.new(Grape::VERSION) > Gem::Version.new('0.9.0')
-        #context.routes[0].route_settings
-        context
-      else
-        context.options[:route_options]
-      end
-
-    end
-
+   
     ###
     # returns true if the endpoint is protected, otherwise false
     ###
