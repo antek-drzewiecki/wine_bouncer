@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'wine_bouncer/auth_strategies/default'
 
-describe ::WineBouncer::AuthStrategies::Default do
+describe ::WineBouncer::AuthStrategies::Default, grape: '0.9.0' do
   subject(:klass) { ::WineBouncer::AuthStrategies::Default.new }
 
   let(:scopes) { %w(public private) }

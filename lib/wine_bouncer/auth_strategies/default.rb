@@ -20,7 +20,7 @@ module WineBouncer
 
       def endpoint_authorizations
         if WineBouncer.post_0_9_0_grape?
-          false
+          api_context.routes[0].route_settings[:authenticate]
         else
           api_context.options[:route_options][:auth]
         end

@@ -75,6 +75,9 @@ RSpec.configure do |config|
   end
 
   config.order = 'random'
+
+  config.filter_run_excluding grape: '0.9.0' if WineBouncer.post_0_9_0_grape?
+  config.filter_run_excluding grape: '>= 0.10.0' unless WineBouncer.post_0_9_0_grape?
 end
 
 
