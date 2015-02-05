@@ -14,6 +14,11 @@ env:
   - rails=3.2.18 grape=0.9.0
   - rails=4.1.1 grape=0.9.0 doorkeeper=1.4.1
   - rails=4.1.1 grape=0.9.0
+matrix:
+  allow_failures:
+    - env: rails=3.2.18 grape=0.8.0
+    - env: rails=3.2.18 grape=0.9.0 doorkeeper=1.4.1
+    - env: rails=3.2.18 grape=0.9.0
 addons:
   code_climate:
     repo_token: ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
