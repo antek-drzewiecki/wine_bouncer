@@ -239,6 +239,18 @@ Example:
  end
 ```
 
+### Easy DSL
+
+``` ruby
+ class MyAwesomeAPI < Grape::API
+    desc 'protected method with required public scope'
+    oauth2 'public', 'write'
+    get '/protected' do
+       { hello: 'world' }
+    end
+ end
+```
+
 ### Token information
 
 WineBouncer comes with free extras! Methods for `resource_owner` and `doorkeeper_access_token` get included in your endpoints. You can use them to get the current resource owner, and the access_token object of doorkeeper.
