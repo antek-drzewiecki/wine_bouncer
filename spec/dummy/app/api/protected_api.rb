@@ -28,6 +28,12 @@ module Api
     get '/protected_without_scope' do
       { hello: 'protected unscoped world' }
     end
+
+    desc 'oauth2_dsl'
+    oauth2 'public'
+    get '/oauth2_dsl' do
+      { hello: 'oauth2_dsl' }
+    end
   end
 
   class ProtectedApiUnderTest < Grape::API

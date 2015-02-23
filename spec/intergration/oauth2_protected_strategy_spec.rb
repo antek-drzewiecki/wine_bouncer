@@ -83,6 +83,22 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
     end
   end
 
+  context 'oauth2_dsl' do
+    it 'allows to call an protected endpoint without scopes' do
+      get '/protected_api/oauth2_dsl', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
+
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('oauth2_dsl')
+
+    end
+
+    it 'raises an error when an protected endpoint without scopes is called without token ' do
+      expect { get '/protected_api/oauth2_dsl' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+    end
+  end
+
   context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/protected_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
