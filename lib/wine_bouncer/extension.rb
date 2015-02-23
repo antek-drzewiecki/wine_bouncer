@@ -2,7 +2,7 @@ module WineBouncer
   module Extension
     def oauth2(*scopes)
       scopes = Array(scopes)
-      description = if respond_to?(:route_seting) # >= grape-0.10.0 
+      description = if respond_to?(:route_setting) # >= grape-0.10.0
         route_setting(:description)
       else
         @last_description ||= {}
