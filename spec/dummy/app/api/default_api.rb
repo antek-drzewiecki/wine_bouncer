@@ -24,7 +24,7 @@ module Api
       { hello: resource_owner.name }
     end
 
-    desc 'This method uses Doorkeepers default scopes', auth: { }
+    desc 'This method uses Doorkeepers default scopes', auth: {}
     get '/protected_without_scope' do
       { hello: 'protected unscoped world' }
     end
@@ -34,6 +34,11 @@ module Api
     get '/oauth2_dsl' do
       { hello: 'oauth2_dsl' }
     end
+    
+    get '/not_described_world' do
+      { hello: 'non described world' }
+    end
+
   end
 
   class DefaultApiUnderTest < Grape::API
@@ -42,5 +47,5 @@ module Api
     use ::WineBouncer::OAuth2
     mount MountedDefaultApiUnderTest
   end
-
 end
+
