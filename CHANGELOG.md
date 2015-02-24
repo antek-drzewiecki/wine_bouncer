@@ -1,5 +1,11 @@
 Changelog
 =========
+
+
+## 0.3.0
+[#21](https://github.com/antek-drzewiecki/wine_bouncer/pull/21): Added an Easy DSL for WineBouncer. Thanks @masarakki .
+## Easy DSL
+
 ## 0.2.2
 *[#17](https://github.com/antek-drzewiecki/wine_bouncer/pull/17): Added a new protected strategy. Thanks @whatasunnyday .
 

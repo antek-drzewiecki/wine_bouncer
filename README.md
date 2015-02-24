@@ -25,8 +25,8 @@ Table of Contents
 
 ## Requirements
 - Ruby > 1.9.3
-- Doorkeeper > 1.4.0 and =< 2.0.1
-- Grape > 0.8
+- Doorkeeper > 1.4.0 and =< 2.11
+- Grape > 0.8 and =< 0.11.0
 
 ## Installation
 
@@ -199,37 +199,37 @@ You can use the default scopes of Doorkeeper by just adding `authorizations: { o
 
 #### Protected
 
-The protected strategy is very similiar to the default strategy except any public end point must explicitly set. To make an end point public, use `auth: false`. 
+The protected strategy is very similiar to the default strategy except any public end point must explicitly set. To make an end point public, use `auth: false`.
 If the authorization is not set, the end point is assumed to be protected and Doorkeeper's default scopes are used.
 
 Example:
 
 ``` ruby
  class MyAwesomeAPI < Grape::API
-    desc 'protected method with required public scope', 
+    desc 'protected method with required public scope',
     auth: { scopes: ['public'] }
     get '/protected' do
        { hello: 'world' }
     end
-    
+
     desc 'Unprotected method'
     get '/unprotected', auth: false do
       { hello: 'unprotected world' }
     end
-    
+
     desc 'This method needs the public or private scope.',
     auth: [:public, :private]
     # Doorkeeper's default scopes are [:public, :private] so auth can be omitted. See next example.
     get '/method' do
       { hello: 'public or private user.' }
     end
-    
+
     desc 'This method uses Doorkeepers default scopes.'
     get '/protected_with_default_scope' do
        { hello: 'protected unscoped world' }
     end
  end
- 
+
  class Api < Grape::API
     default_format :json
     format :json
