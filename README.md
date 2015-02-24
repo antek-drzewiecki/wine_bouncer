@@ -69,6 +69,8 @@ end
 Then register WineBouncer as Grape middleware in your Grape API.
 
 ``` ruby
+require 'wine_bouncer'
+
 class Api < Grape::API
    default_format :json
    format :json
@@ -90,6 +92,8 @@ WineBouncer uses the default Doorkeeper behaviour for scopes.
 Example:
 
 ``` ruby
+require 'wine_bouncer'
+
  class MyAwesomeAPI < Grape::API
     desc 'protected method with required public scope',
     auth: { scopes: ['public'] }
@@ -263,6 +267,21 @@ This gem raises the following exceptions which can be handled in your Grape API,
    when the request is unauthorized.
 * `WineBouncer::Errors::OAuthForbiddenError`
    when the token is found but scopes do not match.
+
+## Testing
+
+If you would like to stub an authenticated user for testing, you use something like [Mocha](https://github.com/freerange/mocha) to do something like this:
+
+```ruby
+def authenticated_user
+  token = mock()
+  user = users(:valid)
+  token.stubs(:acceptable?).returns(true)
+  token.stubs(:resource_owner_id).returns(user.id)
+  Doorkeeper.stubs(:authenticate).returns(token)
+  user
+end
+```
 
 ## Development
 
