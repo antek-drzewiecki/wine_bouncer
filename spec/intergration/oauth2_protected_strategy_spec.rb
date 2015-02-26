@@ -99,6 +99,20 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
     end
   end
 
+  context 'not_described_world' do
+    it 'authentication is required for a non described endpoint' do
+      get '/protected_api/not_described_world', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('non described world')
+    end
+
+    it 'raises an error when an protected endpoint without scopes is called without token ' do
+      expect { get '/protected_api/not_described_world' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+    end
+  end
+
   context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/protected_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"

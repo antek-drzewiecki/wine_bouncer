@@ -97,6 +97,16 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
   end
 
 
+  context 'not_described_world' do
+    it 'allows to call an endpoint without description' do
+      get '/default_api/not_described_world'
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('non described world')
+    end
+  end
+
   context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/default_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
@@ -108,5 +118,4 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       expect(json['hello']).to eq(user.name)
     end
   end
-
 end

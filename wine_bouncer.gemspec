@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'grape', '~> 0.8', '<= 0.10.1'
-  spec.add_runtime_dependency 'doorkeeper', '>= 1.4', '<= 2.0.1'
+  spec.add_runtime_dependency 'grape', '~> 0.8', '<= 0.11.0'
+  spec.add_runtime_dependency 'doorkeeper', '>= 1.4', '<= 2.1.1'
 
   spec.add_development_dependency "railties"
   spec.add_development_dependency "bundler", "~> 1.7"

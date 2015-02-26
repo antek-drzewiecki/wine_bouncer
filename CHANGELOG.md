@@ -1,5 +1,10 @@
 Changelog
 =========
+
+## 0.3.0
+[#21](https://github.com/antek-drzewiecki/wine_bouncer/pull/21): Added an Easy DSL for WineBouncer. Thanks @masarakki .
+[#23](https://github.com/antek-drzewiecki/wine_bouncer/pull/23): Added support for Doorkeeper 2.1.1 and refactored strategies.
+
 ## 0.2.2
 *[#17](https://github.com/antek-drzewiecki/wine_bouncer/pull/17): Added a new protected strategy. Thanks @whatasunnyday .
 
