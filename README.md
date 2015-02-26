@@ -83,7 +83,6 @@ end
 
 WineBouncer comes with an easy DSL and relies on Grape's DSL extentions to define if an endpoint method should be protected.
 You can protect an endpoint by calling `oauth2` method with optional scopes in front of the endpoint definition.
-Behaviour of the authentication can be customized by selecting an authentication strategy.
 
 ``` ruby
  class MyAwesomeAPI < Grape::API
@@ -124,10 +123,9 @@ Behaviour of the authentication can be customized by selecting an authentication
  end
 ```
 
-Example:
-
-
 ### Authentication strategies
+
+Behaviour of the authentication can be customized by selecting an authentication strategy. The following authentication strategies are provided in the gem.
 
 #### Default
 The default strategy only authenticates endpoints which are annotated by the `oauth2` method. Un-annotated endpoints still can be accessed without authentication.
@@ -155,7 +153,7 @@ end
 
 Then you can start protecting your API like the example below.
 
-```
+``` ruby
 desc 'This method needs the public or private scope.',
   :entity => Api::Entities::Response,
   http_codes: [
