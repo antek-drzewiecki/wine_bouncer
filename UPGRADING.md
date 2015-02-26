@@ -1,6 +1,33 @@
 Upgrading WineBouncer
 =====================
 
+## Upgrading to >=  0.3.0
+
+An new DSL has been introduced to WineBouncer. This DSL will become the preferred way to authorize your endpoints.
+The authentication trough endpoint description will become deprecated in the future version.
+
+The old way to authorize your endpoints:
+
+```
+  desc 'protected method with required public and private scope',
+  auth: { scopes: ['public','private'] }
+  get '/protected' do
+     { hello: 'world' }
+  end
+```
+
+You may now write:
+```
+  desc 'protected method with required public and private scope'
+  oauth2 'public', 'private'
+  get '/protected' do
+     { hello: 'world' }
+  end
+```
+
+And even remove the description.
+
+Note this is the last version that will support Grape 0.8 and 0.9. Grape 0.10 will be the next minimum Grape version.
 
 ### Upgrading to >= 0.2.0
 
