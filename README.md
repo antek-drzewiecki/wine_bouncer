@@ -13,12 +13,14 @@ Table of Contents
   * [Installation](#installation)
   * [Upgrading](#upgrading)
   * [Usage](#usage)
+    * [Easy DSL](#easy-dsl)
     * [Authentication strategies](#authentication-strategies)
       * [Default](#default)
       * [Swagger](#swagger)
       * [Protected](#protected)
     * [Token information](#token-information)
   * [Exceptions and Exception handling](#exceptions-and-exception-handling)
+  * [Example Application](#example-application)
   * [Development](#development)
   * [Contributing](#contributing)
 
@@ -190,6 +192,10 @@ This gem raises the following exceptions which can be handled in your Grape API,
    when the request is unauthorized.
 * `WineBouncer::Errors::OAuthForbiddenError`
    when the token is found but scopes do not match.
+
+## Example Application
+
+A full working sample app can be found on [sethherr page](https://github.com/sethherr/grape-doorkeeper) and can be accessed on [heroku](https://grape-doorkeeper.herokuapp.com/)
 
 ## Development
 
