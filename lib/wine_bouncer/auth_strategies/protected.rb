@@ -24,7 +24,7 @@ module WineBouncer
 
 
       def has_authorizations?
-        nil_authorizations? || endpoint_authorizations
+        !nil_authorizations? || api_context.options[:route_options][:oauth2]
       end
 
       def endpoint_authorizations

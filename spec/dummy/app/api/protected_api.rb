@@ -15,7 +15,7 @@ module Api
     end
 
     desc 'Unprotected method'
-    get '/unprotected', auth: false do
+    get '/unprotected', oauth2: false do
       { hello: 'unprotected world' }
     end
 
