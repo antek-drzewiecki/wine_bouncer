@@ -6,6 +6,7 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "public" }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "" }
+  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "custom_scope" } #not a default scope
 
   before (:example) do
     WineBouncer.configure do |c|
@@ -24,6 +25,15 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
+    end
+
+    it 'gives access when tokens are correct and an non doorkeeper default scope is used.' do
+      get '/default_api/oauth2_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
+
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('oauth2_custom_scope')
     end
 
     it 'raises an authentication error when the token is invalid' do
@@ -87,8 +97,15 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
-      expect(json['hello']).to eq('oauth2_dsl')
+      expect(json['hello']).to eq('oauth2 dsl')
+    end
 
+    it 'allows to call custom scopes' do
+      get '/default_api/oauth2_dsl_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('oauth2 dsl custom scope')
     end
 
     it 'raises an error when an protected endpoint without scopes is called without token ' do

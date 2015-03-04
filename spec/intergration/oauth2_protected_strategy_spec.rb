@@ -6,6 +6,7 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "public" }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "" }
+  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: "custom_scope" } #not a default scope
 
   before (:example) do
     WineBouncer.configure do |c|
@@ -91,11 +92,42 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
       expect(json['hello']).to eq('oauth2_dsl')
-
     end
 
-    it 'raises an error when an protected endpoint without scopes is called without token ' do
+    it 'raises an error when an protected endpoint is called without token' do
       expect { get '/protected_api/oauth2_dsl' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+    end
+
+    it 'allows to call an endpoint with default scopes' do
+      get '/protected_api/oauth2_protected_with_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('default oauth2 dsl')
+    end
+
+    it 'raises an error when an default protected endpoint is called without token ' do
+      expect { get '/protected_api/oauth2_protected_with_default_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+    end
+
+    it 'allows to call an unprotected endpoint that has auth disabled' do
+      get '/protected_api/unprotected_endpoint'
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('public oauth2 dsl')
+    end
+
+    it 'allows requests with tokens to public endpoints' do
+      expect { get '/protected_api/oauth2_protected_with_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}" }.not_to raise_error
+    end
+
+    it 'protects endpoints with custom scopes' do
+      get '/protected_api/oauth2_dsl_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+      expect(json['hello']).to eq('custom scope')
     end
   end
 

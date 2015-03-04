@@ -14,6 +14,11 @@ module Api
       { hello: 'scoped world' }
     end
 
+    desc 'Protected method with custom scope', auth: { scopes: ['custom_scope'] }
+    get '/oauth2_custom_scope' do
+      { hello: 'oauth2_custom_scope' }
+    end
+
     desc 'Unprotected method'
     get '/unprotected' do
       { hello: 'unprotected world' }
@@ -32,7 +37,12 @@ module Api
     desc 'oauth2_dsl'
     oauth2 'public'
     get '/oauth2_dsl' do
-      { hello: 'oauth2_dsl' }
+      { hello: 'oauth2 dsl' }
+    end
+
+    oauth2 'custom_scope'
+    get '/oauth2_dsl_custom_scope' do
+      { hello: 'oauth2 dsl custom scope' }
     end
 
     get '/not_described_world' do
