@@ -12,7 +12,7 @@ env:
   - rails=3.2.18 grape=0.10.0
   - rails=4.1.1 grape=0.10.0 doorkeeper=1.4.1
   - rails=4.1.1 grape=0.10.0
-  - rails=4.1.1 grape=0.11.0 doorkeeper=2.1.1
+  - rails=4.1.1 grape=0.11.0 doorkeeper=2.1.3
 matrix:
   allow_failures:
     - rvm: 1.9.3
