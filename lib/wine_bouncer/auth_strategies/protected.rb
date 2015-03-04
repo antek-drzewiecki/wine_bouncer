@@ -32,7 +32,7 @@ module WineBouncer
       # if false or nil scopes are entered the authorization should be skipped.
       # nil_authorizations? is used to check against the legacy hash.
       def scope_keys?
-        nil_authorizations? || (!endpoint_authorizations[:scopes].empty? && (endpoint_authorizations[:scopes] != [false]))
+        nil_authorizations? || endpoint_authorizations[:scopes] != [false]
       end
 
       def endpoint_authorizations

@@ -176,8 +176,9 @@ The Swagger strategy uses scopes and injects them in the authorizations descript
 
 #### Protected
 
-The protected strategy is very similar to the default strategy except any public end point must explicitly set. To make an end point public, use `oauth2: false`.
-If the authorization is not set, the end point is assumed to be protected and Doorkeeper's default scopes are used.
+The protected strategy is very similar to the default strategy except any public endpoint must explicitly set. To make an end point public, use `oauth2 false`.
+If the authorization method is not set, the end point is assumed to be __protected with Doorkeeper's default scopes__ (which is the same as `oauth2 nil `.)
+To protect your endpoint with other scopes append the following method `oauth2 'first scope', 'second scope'`.
 
 
 ### Token information

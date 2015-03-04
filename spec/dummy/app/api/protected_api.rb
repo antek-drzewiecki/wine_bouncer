@@ -41,12 +41,12 @@ module Api
     end
 
     oauth2
-    get '/unprotected_endpoint' do
-      { hello: 'public oauth2 dsl' }
+    get '/oauth2_protected_with_default_scopes' do
+      { hello: 'default oauth2 dsl' }
     end
 
     oauth2 false
-    get '/unprotected_endpoints' do
+    get '/unprotected_endpoint' do
       { hello: 'public oauth2 dsl' }
     end
 
