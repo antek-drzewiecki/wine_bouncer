@@ -27,8 +27,8 @@ Table of Contents
 
 ## Requirements
 - Ruby > 1.9.3
-- Doorkeeper > 1.4.0 and =< 2.1.1
-- Grape > 0.8 and =< 0.11.0
+- Doorkeeper > 1.4.0 and < 2.2
+- Grape > 0.8 and < 0.12
 
 ## Installation
 
