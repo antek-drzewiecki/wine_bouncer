@@ -23,8 +23,16 @@ module WineBouncer
       end
 
 
+      # returns true if an authorization hash has been found
+      # First it checks for the old syntax, then for the new.
       def has_authorizations?
-        nil_authorizations? || endpoint_authorizations
+        (nil_authorizations? || !!endpoint_authorizations) && scope_keys?
+      end
+
+      # if false or nil scopes are entered the authorization should be skipped.
+      # nil_authorizations? is used to check against the legacy hash.
+      def scope_keys?
+        nil_authorizations? || (!endpoint_authorizations[:scopes].empty? && (endpoint_authorizations[:scopes] != [false]))
       end
 
       def endpoint_authorizations

@@ -35,6 +35,21 @@ module Api
       { hello: 'oauth2_dsl' }
     end
 
+    oauth2 'custom_scope'
+    get '/oauth2_dsl_custom_scope' do
+      { hello: 'custom scope' }
+    end
+
+    oauth2
+    get '/unprotected_endpoint' do
+      { hello: 'public oauth2 dsl' }
+    end
+
+    oauth2 false
+    get '/unprotected_endpoints' do
+      { hello: 'public oauth2 dsl' }
+    end
+
     get '/not_described_world' do
       { hello: 'non described world' }
     end
