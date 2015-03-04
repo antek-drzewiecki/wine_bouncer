@@ -1,5 +1,7 @@
 Changelog
 =========
+## 0.3.1
+[#27](https://github.com/antek-drzewiecki/wine_bouncer/pull/27): Fixes DSL default and protected strategy. Fixes #24 and #26.
 
 ## 0.3.0
 [#21](https://github.com/antek-drzewiecki/wine_bouncer/pull/21): Added an Easy DSL for WineBouncer. Thanks @masarakki .
