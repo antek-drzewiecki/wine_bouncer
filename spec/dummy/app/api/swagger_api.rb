@@ -29,15 +29,27 @@ module Api
       { hello: 'protected unscoped world' }
     end
 
+    get '/not_described_world' do
+      { hello: 'non described world' }
+    end
+
+
     desc 'oauth2 dsl'
     oauth2 'public'
     get '/oauth2_dsl' do
       { hello: 'oauth2_dsl' }
     end
 
-    get '/not_described_world' do
-      { hello: 'non described world' }
+    oauth2
+    get '/oauth2_dsl_default_scopes' do
+      { hello: 'oauth dsl default scopes' }
     end
+
+    oauth2 'custom_scope'
+    get '/oauth2_dsl_custom_scopes' do
+      { hello: 'oauth dsl custom scopes' }
+    end
+
   end
 
   class SwaggerApiUnderTest < Grape::API
