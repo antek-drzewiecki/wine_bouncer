@@ -34,6 +34,10 @@ module Api
       { hello: 'protected unscoped world' }
     end
 
+    get '/not_described_world' do
+      { hello: 'non described world' }
+    end
+
     desc 'oauth2_dsl'
     oauth2 'public'
     get '/oauth2_dsl' do
@@ -45,8 +49,9 @@ module Api
       { hello: 'oauth2 dsl custom scope' }
     end
 
-    get '/not_described_world' do
-      { hello: 'non described world' }
+    oauth2
+    get '/oauth2_dsl_default_scopes' do
+      { hello: 'oauth dsl default scopes' }
     end
 
   end
