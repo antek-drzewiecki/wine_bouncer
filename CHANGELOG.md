@@ -1,6 +1,7 @@
 Changelog
 =========
 ## 0.3.1
+[#30](https://github.com/antek-drzewiecki/wine_bouncer/pull/30): Restricted grape dependencies to the next minor level of grape.
 [#29](https://github.com/antek-drzewiecki/wine_bouncer/pull/29): Doorkeepers dependencies are restricted to minor levels. Thanks @nickcharlton
 [#27](https://github.com/antek-drzewiecki/wine_bouncer/pull/27): Fixes DSL default and protected strategy. Fixes #24 and #26.
 
