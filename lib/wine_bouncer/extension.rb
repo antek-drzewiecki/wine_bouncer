@@ -1,7 +1,7 @@
 module WineBouncer
   module Extension
     def oauth2(*scopes)
-      scopes = Doorkeeper.configuration.default_scopes if scopes.all? { |x| x.nil? }
+      scopes = Doorkeeper.configuration.default_scopes.all if scopes.all? { |x| x.nil? }
       description = if respond_to?(:route_setting) # >= grape-0.10.0
         route_setting(:description) || route_setting(:description, {})
       else
