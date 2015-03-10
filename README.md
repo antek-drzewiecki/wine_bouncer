@@ -194,9 +194,9 @@ This gem raises the following exceptions which can be handled in your Grape API,
 * `WineBouncer::Errors::OAuthForbiddenError`
    when the token is found but scopes do not match.
 
-## Example Application
+## Example/Template Application
 
-A full working sample app can be found on [sethherr page](https://github.com/sethherr/grape-doorkeeper) and can be accessed on [heroku](https://grape-doorkeeper.herokuapp.com/)
+A full working sample app (or starter template) can be found at [grape-doorkeeper on github](https://github.com/sethherr/grape-doorkeeper). It has one click deploy to Heroku and [a live example](https://grape-doorkeeper.herokuapp.com/).
 
 ## Development
 
