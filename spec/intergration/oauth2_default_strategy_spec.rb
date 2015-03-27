@@ -139,6 +139,32 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
         expect { get '/default_api/oauth2_dsl_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
       end
     end
+
+    context 'oauth2_dsl_multiple_scopes' do
+
+      it 'allows call on the first scope' do
+        scope_token = FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'multiple'
+        get '/default_api/oauth2_dsl_multiple_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{scope_token.token}"
+        expect(last_response.status).to eq(200)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('hello')
+        expect(json['hello']).to eq('oauth2 dsl multiple scopes')
+      end
+
+      it 'allows call on the second scope' do
+        scope_token = FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'scopes'
+        get '/default_api/oauth2_dsl_multiple_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{scope_token.token}"
+        expect(last_response.status).to eq(200)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('hello')
+        expect(json['hello']).to eq('oauth2 dsl multiple scopes')
+      end
+
+      it 'raises an error scope does not match any of the scopes' do
+        expect { get '/default_api/oauth2_dsl_multiple_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+      end
+
+    end
   end
 
   context 'not_described_world' do
