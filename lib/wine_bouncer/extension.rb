@@ -7,12 +7,16 @@ module WineBouncer
       else
         @last_description ||= {}
       end
-      # case WineBouncer.configuration.auth_strategy
-      # when :default
+
+      case WineBouncer.configuration.auth_strategy
+      when :default
+        description[:auth] = { scopes: scopes }
+      when :swagger
+        description[:authorizations] = { oauth2: scopes.map{|x| {scope: x}} }
+      end
+    rescue WineBouncer::Errors::UnconfiguredError
       description[:auth] = { scopes: scopes }
-      # when :swagger
       description[:authorizations] = { oauth2: scopes.map{|x| {scope: x}} }
-      # end
     end
 
     Grape::API.extend self
