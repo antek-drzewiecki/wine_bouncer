@@ -87,7 +87,7 @@ WineBouncer comes with an easy DSL and relies on Grape's DSL extentions to defin
 You can protect an endpoint by calling `oauth2` method with optional scopes in front of the endpoint definition.
 
 ``` ruby
- class MyAwesomeAPI < Grape::API
+ class MyAwesomeAPI < Api
     desc 'protected method with required public scope'
     oauth2 'public'
     get '/protected' do
