@@ -30,6 +30,16 @@ module WineBouncer
       fail(Errors::UnconfiguredError, 'Please define define_resource_owner to configure the resource owner') unless @defined_resource_owner
       @defined_resource_owner
     end
+
+    # when the block evaluates to true, WineBouncer should be disabled
+    # if no block is provided, WineBouncer is always enabled
+    def disable(&block)
+      @disable_block = block
+    end
+
+    def disable_block
+      @disable_block || ->() { false }
+    end
   end
 
    def self.configuration
