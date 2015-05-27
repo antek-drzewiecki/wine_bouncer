@@ -201,6 +201,7 @@ The block is newly evaluated for every request, so you could in principle have s
 ```{ruby}
 config.disable do
   [true, false].sample
+end
 ```
 
 You probably shouldn't, though.
