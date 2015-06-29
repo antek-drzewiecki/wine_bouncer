@@ -11,9 +11,10 @@ env:
   - rails=3.2.18 grape=0.10.0
   - rails=3.2.18 grape=0.12.0
   - rails=4.1.1 grape=0.12.0 doorkeeper=2.0.1
-  - rails=4.2.0 grape=0.10.0 doorkeeper=2.1.4
-  - rails=4.2.0 grape=0.11.0 doorkeeper=2.1.4
-  - rails=4.2.0 grape=0.12.0 doorkeeper=2.1.4
+  - rails=4.1.1 grape=0.12.0 doorkeeper=2.1.4
+  - rails=4.2.0 grape=0.10.0 doorkeeper=2.2.1
+  - rails=4.2.0 grape=0.11.0 doorkeeper=2.2.1
+  - rails=4.2.0 grape=0.12.0 doorkeeper=2.2.1
 matrix:
   exclude:
     - env: rails=3.2.18 grape=0.10.0
