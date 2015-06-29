@@ -1,9 +1,12 @@
 Changelog
 =========
 
+## Next
+
 ## 0.4.0
-Added support for Doorkeeper 2.2
+* [#42](https://github.com/antek-drzewiecki/wine_bouncer/pull/42): Added support for Doorkeeper 2.2
 * [#41](https://github.com/antek-drzewiecki/wine_bouncer/pull/41): Added support for Grape 0.12.0, Removed support for Grape 0.8 and 0.9 (though they still work).
+* [#39](https://github.com/antek-drzewiecki/wine_bouncer/pull/39): Add option to disable WineBouncer conditionally. Thanks @Fryie .
 
 ## 0.3.1
 * [#31](https://github.com/antek-drzewiecki/wine_bouncer/pull/31): Improves support for default scopes trough DSL.
