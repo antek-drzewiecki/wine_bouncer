@@ -1,6 +1,7 @@
 module WineBouncer
   class OAuth2 < Grape::Middleware::Base
 
+    include Doorkeeper::Helpers::Controller
     ###
     # returns the api context
     ###
@@ -22,15 +23,8 @@ module WineBouncer
     ###
     # Returns the request context.
     ###
-    def doorkeeper_request
+    def request
       @_doorkeeper_request
-    end
-
-    ###
-    # Authenticates from a request and returns a valid or invalid token.
-    ###
-    def doorkeeper_token
-      @_doorkeeper_token ||= Doorkeeper.authenticate(doorkeeper_request,Doorkeeper.configuration.access_token_methods)
     end
 
     ###
