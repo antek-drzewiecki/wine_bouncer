@@ -1,5 +1,9 @@
 Changelog
 =========
+
+## 0.4.0
+Added support for Grape 0.12.0, Removed support for Grape 0.8 and 0.9 (though they still work).
+
 ## 0.3.1
 [#31](https://github.com/antek-drzewiecki/wine_bouncer/pull/31): Improves support for default scopes trough DSL.
 [#30](https://github.com/antek-drzewiecki/wine_bouncer/pull/30): Restricted grape dependencies to the next minor level of grape.

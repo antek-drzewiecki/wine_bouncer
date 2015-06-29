@@ -26,9 +26,9 @@ Table of Contents
 
 
 ## Requirements
-- Ruby > 1.9.3
+- Ruby > 2.0
 - Doorkeeper > 1.4.0 and < 2.2
-- Grape > 0.8 and < 0.12
+- Grape > 0.10 and < 0.13
 
 ## Installation
 
@@ -46,7 +46,7 @@ bundle
 
 ## Upgrading
 When upgrading from a previous version, see [UPGRADING](UPGRADING.md). You might also be interested at the [CHANGELOG](CHANGELOG.md).
-Note this is the last version that will support Grape 0.8 and 0.9. Grape 0.10 will be the next minimum Grape version.
+
 
 ## Usage
 WineBouncer is a custom Grape Middleware used for Authentication and Authorization. We assume you have a Grape API mounted in your Rails application together with Doorkeeper.
