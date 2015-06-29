@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "wine_bouncer"
   spec.version       = WineBouncer::VERSION
   spec.authors       = ["Antek Drzewiecki"]
-  spec.email         = ["antek.drzewiecki@tass.nl"]
+  spec.email         = ["antek.drzewiecki@altran.com"]
   spec.summary       = %q{A Ruby gem that allows Oauth2 protection with Doorkeeper for Grape Api's}
   spec.homepage      = ""
   spec.license       = "MIT"
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'grape', '~> 0.10', '< 0.13'
-  spec.add_runtime_dependency 'doorkeeper', '>= 1.4', '< 2.2'
+  spec.add_runtime_dependency 'doorkeeper', '>= 1.4', '< 3.0'
 
   spec.add_development_dependency "railties"
   spec.add_development_dependency "bundler", "~> 1.7"
