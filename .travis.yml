@@ -2,6 +2,7 @@ before_install:
   - gem update bundler
   - bundle --version
 language: ruby
+cache: bundler
 rvm:
   - 2.0
   - 2.1
