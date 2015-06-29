@@ -19,6 +19,7 @@ Table of Contents
       * [Swagger](#swagger)
       * [Protected](#protected)
     * [Token information](#token-information)
+    * [Disable WineBouncer](#disable-winebouncer)
   * [Exceptions and Exception handling](#exceptions-and-exception-handling)
   * [Example Application](#example-application)
   * [Development](#development)
@@ -184,6 +185,26 @@ To protect your endpoint with other scopes append the following method `oauth2 '
 ### Token information
 
 WineBouncer comes with free extras! Methods for `resource_owner` and `doorkeeper_access_token` get included in your endpoints. You can use them to get the current resource owner, and the access_token object of doorkeeper.
+
+### Disable WineBouncer
+
+If you want to disable WineBouncer conditionally - e.g. in specs - you can add a block to the WineBouncer configuration. When this block evaluates to true, any request will be unprotected. For example:
+```{ruby}
+WineBouncer.configure do |config|
+  config.disable do
+    Rails.env.test?
+  end
+end
+```
+
+The block is newly evaluated for every request, so you could in principle have something like:
+```{ruby}
+config.disable do
+  [true, false].sample
+end
+```
+
+You probably shouldn't, though.
 
 ## Exceptions and Exception handling
 

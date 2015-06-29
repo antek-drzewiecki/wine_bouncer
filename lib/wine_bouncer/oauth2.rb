@@ -80,6 +80,8 @@ module WineBouncer
     # Before do.
     ###
     def before
+      return if WineBouncer.configuration.disable_block.call
+
       set_auth_strategy(WineBouncer.configuration.auth_strategy)
       auth_strategy.api_context = context
       #extend the context with auth methods.

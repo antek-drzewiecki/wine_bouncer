@@ -18,6 +18,27 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
     end
   end
 
+  context 'when WineBouncer is disabled' do
+    before :all do
+      WineBouncer.configure do |c|
+        c.disable { true }
+      end
+    end
+
+    after :all do
+      WineBouncer.configure do |c|
+        c.disable { false }
+      end
+    end
+
+    it 'allows request to protected resource without token' do
+      get '/protected_api/protected'
+      expect(last_response.status).to eq(200)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('hello')
+    end
+  end
+
   context 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
       get '/protected_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
