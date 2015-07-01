@@ -36,7 +36,7 @@ Table of Contents
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer'
+gem 'wine_bouncer', '~> 0.4.0'
 ```
 
 And then execute:
