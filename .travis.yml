@@ -1,27 +1,30 @@
 before_install:
-  - gem update bundler
-  - bundle --version
+- gem update bundler
+- bundle --version
 language: ruby
 cache: bundler
 rvm:
-  - 2.0
-  - 2.1
-  - 2.2
+- 2.0
+- 2.1
+- 2.2
 env:
-  - rails=3.2.18 grape=0.10.0
-  - rails=3.2.18 grape=0.12.0
-  - rails=4.1.1 grape=0.12.0 doorkeeper=2.0.1
-  - rails=4.1.1 grape=0.12.0 doorkeeper=2.1.4
-  - rails=4.2.0 grape=0.10.0 doorkeeper=2.2.1
-  - rails=4.2.0 grape=0.11.0 doorkeeper=2.2.1
-  - rails=4.2.0 grape=0.12.0 doorkeeper=2.2.1
+- rails=3.2.18 grape=0.10.0
+- rails=3.2.18 grape=0.12.0
+- rails=4.1.1 grape=0.12.0 doorkeeper=2.0.1
+- rails=4.1.1 grape=0.12.0 doorkeeper=2.1.4
+- rails=4.2.0 grape=0.10.0 doorkeeper=2.2.1
+- rails=4.2.0 grape=0.11.0 doorkeeper=2.2.1
+- rails=4.2.0 grape=0.12.0 doorkeeper=2.2.1
 matrix:
   exclude:
-    - env: rails=3.2.18 grape=0.10.0
-      rvm: 2.2
-
-    - env: rails=3.2.18 grape=0.12.0
-      rvm: 2.2
+  - env: rails=3.2.18 grape=0.10.0
+    rvm: 2.2
+  - env: rails=3.2.18 grape=0.12.0
+    rvm: 2.2
 addons:
   code_climate:
     repo_token: ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
+notifications:
+  hipchat:
+    rooms:
+      secure: SUWenlDzlDbpryO1QzD+rN4MxIBpAAzwsFqnnkyRQ11thRVdvKuT2TUd+RlYImLXDNkvNjqmpXh7mihtcro9g8unR3nF1UKbuAPIv2kCklsio0jAnjVn7+h1l56hsa90Jy9t/YpKtoLx2QNWLz70n8VrtGJMAt53T6tZdgNUp58=
