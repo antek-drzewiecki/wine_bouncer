@@ -2,6 +2,7 @@ Changelog
 =========
 
 ## Next
+* [#48](https://github.com/antek-drzewiecki/wine_bouncer/pull/48): Bind Doorkeeper error response into WineBouncer errors
 
 ## 0.4.0
 * [#42](https://github.com/antek-drzewiecki/wine_bouncer/pull/42): Added support for Doorkeeper 2.2

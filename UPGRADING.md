@@ -1,6 +1,13 @@
 Upgrading WineBouncer
 =====================
 
+## Upgrading to >= 0.4.1
+
+WineBouncer's exceptions `OAuthUnauthorizedError` and `OAuthForbiddenError` now come with a
+corresponding Doorkeeper's error response. You can access it via `response` method of the exception.
+For backward compatible, you can still use `message` but the content will be provided by Doorkeeper
+error response's description.
+
 ## Upgrading to >=  0.3.0
 
 An new DSL has been introduced to WineBouncer. This DSL will become the preferred way to authorize your endpoints.
