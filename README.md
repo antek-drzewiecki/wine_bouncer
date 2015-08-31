@@ -28,15 +28,15 @@ Table of Contents
 
 ## Requirements
 - Ruby > 2.0
-- Doorkeeper > 1.4.0 and < 3
-- Grape > 0.10 and < 0.13
+- Doorkeeper > 1.4.0 and < 3.1
+- Grape > 0.10 and < 0.14
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 0.4.0'
+gem 'wine_bouncer', '~> 0.5.0'
 ```
 
 And then execute:

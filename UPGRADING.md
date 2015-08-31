@@ -1,7 +1,7 @@
 Upgrading WineBouncer
 =====================
 
-## Upgrading to >= 0.4.1
+## Upgrading to >= 0.5.0
 
 WineBouncer's exceptions `OAuthUnauthorizedError` and `OAuthForbiddenError` now come with a
 corresponding Doorkeeper's error response. You can access it via `response` method of the exception.

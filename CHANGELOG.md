@@ -1,8 +1,11 @@
 Changelog
 =========
-
 ## Next
+
+## 0.5.0
+* [#50](https://github.com/antek-drzewiecki/wine_bouncer/pull/50): Grape 0.13.x support
 * [#48](https://github.com/antek-drzewiecki/wine_bouncer/pull/48): Bind Doorkeeper error response into WineBouncer errors
+* [#47](https://github.com/antek-drzewiecki/wine_bouncer/pull/47): Doorkeeper 3.0.x support
 
 ## 0.4.0
 * [#42](https://github.com/antek-drzewiecki/wine_bouncer/pull/42): Added support for Doorkeeper 2.2
