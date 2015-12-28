@@ -158,13 +158,12 @@ Then you can start protecting your API like the example below.
 
 ``` ruby
 desc 'This method needs the public or private scope.',
-  :entity => Api::Entities::Response,
-  http_codes: [
-      [200, 'OK', Api::Entities::Response],
+  success: Api::Entities::Response,
+  failure: [
       [401, 'Unauthorized', Api::Entities::Error],
       [403, 'Forbidden', Api::Entities::Error]
   ],
-  :notes => <<-NOTE
+  notes: <<-NOTE
   Marked down notes!
   NOTE
 oauth2 'public', 'write'
