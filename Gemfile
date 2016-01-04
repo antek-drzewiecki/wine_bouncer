@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ENV['grape'] ||= '0.14.0'
 ENV['rails'] ||= '4.2.0'
-ENV['doorkeeper'] ||= '2.2.1'
+ENV['doorkeeper'] ||= '3.1.0'
 
 gem 'rails', ENV['rails']
 
