@@ -12,9 +12,9 @@ env:
 - rails=4.1.1 grape=0.12.0 doorkeeper=2.0.1
 - rails=4.1.1 grape=0.13.0 doorkeeper=2.1.4
 - rails=4.2.0 grape=0.10.0 doorkeeper=2.2.1
-- rails=4.2.0 grape=0.11.0 doorkeeper=3.0.0
-- rails=4.2.0 grape=0.13.0 doorkeeper=3.0.0
-- rails=4.2.0 grape=0.14.0 doorkeeper=3.0.0
+- rails=4.2.0 grape=0.11.0 doorkeeper=3.1.0
+- rails=4.2.0 grape=0.13.0 doorkeeper=3.1.0
+- rails=4.2.0 grape=0.14.0 doorkeeper=3.1.0
 addons:
   code_climate:
     repo_token: ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
