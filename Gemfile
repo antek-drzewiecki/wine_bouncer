@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ENV['grape'] ||= '0.13.0'
+ENV['grape'] ||= '0.14.0'
 ENV['rails'] ||= '4.2.0'
 ENV['doorkeeper'] ||= '2.2.1'
 

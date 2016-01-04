@@ -1,6 +1,7 @@
 Changelog
 =========
-## Next
+## 0.5.1
+* [#56](https://github.com/antek-drzewiecki/wine_bouncer/pull/56): Grape 0.14.x support
 
 ## 0.5.0
 * [#50](https://github.com/antek-drzewiecki/wine_bouncer/pull/50): Grape 0.13.x support
