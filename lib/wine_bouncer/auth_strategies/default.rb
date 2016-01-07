@@ -1,7 +1,6 @@
 module WineBouncer
   module AuthStrategies
     class Default < ::WineBouncer::BaseStrategy
-
       def endpoint_protected?
         !!endpoint_authorizations
       end

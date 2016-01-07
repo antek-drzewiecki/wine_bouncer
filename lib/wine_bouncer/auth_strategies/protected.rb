@@ -1,7 +1,6 @@
 module WineBouncer
   module AuthStrategies
     class Protected < WineBouncer::BaseStrategy
-
       def endpoint_protected?
         has_authorizations?
       end
@@ -21,7 +20,6 @@ module WineBouncer
       def nil_authorizations?
         endpoint_authorizations.nil?
       end
-
 
       # returns true if an authorization hash has been found
       # First it checks for the old syntax, then for the new.

@@ -58,7 +58,6 @@ module Api
     get '/oauth2_dsl_multiple_scopes' do
       { hello: 'oauth2 dsl multiple scopes' }
     end
-
   end
 
   class DefaultApiUnderTest < Grape::API

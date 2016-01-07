@@ -5,12 +5,11 @@ module WineBouncer
   end
 
   class Configuration
-
     attr_accessor :auth_strategy
     attr_accessor :defined_resource_owner
 
     def auth_strategy=(strategy)
-      @auth_strategy= strategy
+      @auth_strategy = strategy
     end
 
     def auth_strategy
@@ -47,7 +46,7 @@ module WineBouncer
   end
 
   def self.configuration=(config)
-    @configuration= config
+    @configuration = config
     @configuration.require_strategies
   end
 

@@ -1,7 +1,6 @@
 module WineBouncer
   module AuthStrategies
     class Swagger < ::WineBouncer::BaseStrategy
-
       def endpoint_protected?
         has_authorizations? && !!authorization_type_oauth2
       end

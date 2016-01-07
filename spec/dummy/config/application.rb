@@ -12,7 +12,6 @@ require 'wine_bouncer'
 
 Bundler.require(*Rails.groups)
 
-
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

@@ -8,7 +8,6 @@ describe ::WineBouncer::AuthStrategies::Default do
   let(:scopes_hash) { { scopes: scopes } }
   let(:auth_context) { { route_options: { auth: scopes_hash } } }
 
-
   context 'endpoint_authorizations' do
     it 'returns the auth key of the authentication hash.' do
       context_double = double()

@@ -33,7 +33,6 @@ module Api
       { hello: 'non described world' }
     end
 
-
     desc 'oauth2 dsl'
     oauth2 'public'
     get '/oauth2_dsl' do
@@ -49,7 +48,6 @@ module Api
     get '/oauth2_dsl_custom_scopes' do
       { hello: 'oauth dsl custom scopes' }
     end
-
   end
 
   class SwaggerApiUnderTest < Grape::API

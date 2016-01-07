@@ -8,7 +8,6 @@ describe ::WineBouncer::AuthStrategies::Swagger do
   let(:scopes_map) { { oauth2: scopes } }
   let(:auth_context) { { route_options: { authorizations: scopes_map } } }
 
-
   context 'endpoint_authorizations' do
     it 'returns the auth key of the authentication hash.' do
       context_double = double()

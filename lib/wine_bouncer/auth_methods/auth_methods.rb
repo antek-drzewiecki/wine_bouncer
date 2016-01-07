@@ -3,7 +3,7 @@ module WineBouncer
     attr_accessor :doorkeeper_access_token
 
     def protected_endpoint=(protected)
-      @protected_endpoint= protected
+      @protected_endpoint = protected
     end
 
     def protected_endpoint?

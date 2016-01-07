@@ -1,6 +1,5 @@
 module WineBouncer
   class OAuth2 < Grape::Middleware::Base
-
     include Doorkeeper::Helpers::Controller
     ###
     # returns the api context
@@ -86,7 +85,7 @@ module WineBouncer
       context.extend(WineBouncer::AuthMethods)
       context.protected_endpoint = endpoint_protected?
       return unless context.protected_endpoint?
-      self.doorkeeper_request= env # set request for later use.
+      self.doorkeeper_request = env # set request for later use.
       doorkeeper_authorize! *auth_scopes
       context.doorkeeper_access_token = doorkeeper_token
     end
@@ -103,6 +102,5 @@ module WineBouncer
     def set_auth_strategy(strategy)
       @auth_strategy = WineBouncer::AuthStrategies.const_get("#{strategy.to_s.capitalize}").new
     end
-
   end
 end

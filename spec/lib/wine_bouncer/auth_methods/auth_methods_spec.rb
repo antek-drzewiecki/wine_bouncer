@@ -61,19 +61,19 @@ describe ::WineBouncer::AuthMethods do
 
     it 'return false if the token has a resource_owner' do
       token.resource_owner_id = 2
-      tested_class.doorkeeper_access_token= token
+      tested_class.doorkeeper_access_token = token
       expect(tested_class.client_credential_token?).to be false
     end
   end
 
   context 'protected_endpoint?' do
     it 'when set true it returns true' do
-      tested_class.protected_endpoint= true
+      tested_class.protected_endpoint = true
       expect(tested_class.protected_endpoint?).to be true
     end
 
     it 'when set false it returns false' do
-      tested_class.protected_endpoint= false
+      tested_class.protected_endpoint = false
       expect(tested_class.protected_endpoint?).to be false
     end
 
@@ -81,7 +81,6 @@ describe ::WineBouncer::AuthMethods do
       expect(tested_class.protected_endpoint?).to be false
     end
   end
-
 
   context 'resource_owner' do
     it 'runs the configured block' do
@@ -97,7 +96,7 @@ describe ::WineBouncer::AuthMethods do
     end
 
     it 'raises an argument error when the block is not configured' do
-      WineBouncer.configuration= WineBouncer::Configuration.new
+      WineBouncer.configuration = WineBouncer::Configuration.new
       expect { tested_class.resource_owner }.to raise_error(WineBouncer::Errors::UnconfiguredError)
     end
   end
