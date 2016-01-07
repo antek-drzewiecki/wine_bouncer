@@ -41,7 +41,7 @@ module WineBouncer
     end
   end
 
-   def self.configuration
+  def self.configuration
     @configuration || fail(Errors::UnconfiguredError.new)
   end
 

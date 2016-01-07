@@ -7,7 +7,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
   let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
 
-  before (:example) do
+  before(:example) do
     WineBouncer.configure do |c|
       c.auth_strategy = :swagger
 

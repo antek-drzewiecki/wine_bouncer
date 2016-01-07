@@ -89,7 +89,7 @@ describe ::WineBouncer::AuthMethods do
 
       WineBouncer.configure do |c|
         c.auth_strategy = :default
-        c.define_resource_owner &foo
+        c.define_resource_owner(&foo)
       end
 
       expect(tested_class.resource_owner).to be(result)

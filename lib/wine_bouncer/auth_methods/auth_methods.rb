@@ -27,7 +27,7 @@ module WineBouncer
     end
 
     def has_doorkeeper_token?
-      !!@_doorkeeper_access_token
+      !@_doorkeeper_access_token.nil?
     end
 
     def has_resource_owner?
