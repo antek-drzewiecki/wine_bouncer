@@ -57,7 +57,6 @@ describe ::WineBouncer::AuthStrategies::Default do
     end
 
     it 'returns false when the auth scopes contain a blank scope array' do
-
       context_double = double()
       allow(context_double).to receive(:options) { { route_options: { auth: { scopes: [] } } } }
       klass.api_context = context_double

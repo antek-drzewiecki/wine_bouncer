@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ::WineBouncer::AuthMethods do
-
   let(:tested_class) do
     Class.new do
       include ::WineBouncer::AuthMethods
@@ -25,7 +24,6 @@ describe ::WineBouncer::AuthMethods do
     end
 
     it 'gives false when the class an no token' do
-
       expect(tested_class.has_resource_owner?).to be false
     end
 
@@ -88,7 +86,7 @@ describe ::WineBouncer::AuthMethods do
   context 'resource_owner' do
     it 'runs the configured block' do
       result = 'called block'
-      foo = Proc.new { result }
+      foo = proc { result }
 
       WineBouncer.configure do |c|
         c.auth_strategy = :default

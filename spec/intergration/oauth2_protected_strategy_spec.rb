@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedProtectedApiUnderTest, type: :api do
-
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }

@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedSwaggerApiUnderTest, type: :api do
-
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
@@ -21,7 +20,6 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
 
   context 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
-
       get '/swagger_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
       expect(last_response.status).to eq(200)
@@ -64,7 +62,6 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
   end
 
   context 'protected_without_scopes' do
-
     it 'allows to call an protected endpoint without scopes' do
       get '/swagger_api/protected_without_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
@@ -155,5 +152,4 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
       expect(json['hello']).to eq(user.name)
     end
   end
-
 end
