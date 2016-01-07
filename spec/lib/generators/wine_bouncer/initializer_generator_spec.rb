@@ -15,4 +15,3 @@ describe WineBouncer::Generators::InitializerGenerator, type: :generator do
     assert_file 'config/initializers/wine_bouncer.rb', /WineBouncer\.configure/
   end
 end
-

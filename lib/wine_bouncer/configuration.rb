@@ -7,10 +7,7 @@ module WineBouncer
   class Configuration
     attr_accessor :auth_strategy
     attr_accessor :defined_resource_owner
-
-    def auth_strategy=(strategy)
-      @auth_strategy = strategy
-    end
+    attr_writer :auth_strategy
 
     def auth_strategy
       @auth_strategy || :default

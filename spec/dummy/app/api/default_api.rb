@@ -67,4 +67,3 @@ module Api
     mount MountedDefaultApiUnderTest
   end
 end
-

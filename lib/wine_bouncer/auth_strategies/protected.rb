@@ -7,7 +7,7 @@ module WineBouncer
 
       def has_auth_scopes?
         endpoint_authorizations &&
-          endpoint_authorizations.has_key?(:scopes) &&
+          endpoint_authorizations.key?(:scopes) &&
           endpoint_authorizations[:scopes].any?
       end
 

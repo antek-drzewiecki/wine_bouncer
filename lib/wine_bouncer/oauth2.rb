@@ -93,9 +93,7 @@ module WineBouncer
     ###
     # Strategy
     ###
-    def auth_strategy
-      @auth_strategy
-    end
+    attr_reader :auth_strategy
 
     private
 
