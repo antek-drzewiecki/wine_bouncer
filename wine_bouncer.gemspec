@@ -28,4 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "generator_spec", "~> 0.9.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "database_cleaner", "~> 1.3.0"
+  spec.add_development_dependency 'rubocop', '0.35.1'
+  spec.add_development_dependency 'yard', '~> 0.8.7'
 end

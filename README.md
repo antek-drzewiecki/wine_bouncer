@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/antek-drzewiecki/wine_bouncer.svg?branch=master)](https://travis-ci.org/antek-drzewiecki/wine_bouncer)
 [![Code Climate](https://codeclimate.com/github/antek-drzewiecki/wine_bouncer/badges/gpa.svg)](https://codeclimate.com/github/antek-drzewiecki/wine_bouncer)
 [![Gem Version](https://badge.fury.io/rb/wine_bouncer.svg)](http://badge.fury.io/rb/wine_bouncer)
+[![Documentation](https://inch-ci.org/github/antek-drzewiecki/wine_bouncer)
 
 Protect your precious Grape API with Doorkeeper.
 WineBouncer uses minimal modification, to make the magic happen.
