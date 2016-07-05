@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ENV['grape'] ||= '0.14.0'
-ENV['rails'] ||= '4.2.0'
-ENV['doorkeeper'] ||= '3.1.0'
+ENV['grape'] ||= '0.16.2'
+ENV['rails'] ||= '5.0.0'
+ENV['doorkeeper'] ||= '4.0.0'
 
 gem 'rails', ENV['rails']
 
