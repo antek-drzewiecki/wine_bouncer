@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'wine_bouncer/auth_strategies/swagger'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 WineBouncer.configure do |config|
   config.auth_strategy = :default
 

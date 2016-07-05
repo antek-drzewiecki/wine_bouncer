@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'generator_spec'
 require 'rails_helper'
 require 'spec_helper'
 require 'generators/wine_bouncer/initializer_generator'
 
 describe WineBouncer::Generators::InitializerGenerator, type: :generator do
-  destination '/tmp'
+  destination '/tmp/wine_bouncer'
 
   before do
     prepare_destination

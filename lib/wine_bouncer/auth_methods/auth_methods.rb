@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WineBouncer
   module AuthMethods
     attr_accessor :doorkeeper_access_token
