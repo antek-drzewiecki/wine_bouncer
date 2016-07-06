@@ -1,6 +1,12 @@
 Upgrading WineBouncer
 =====================
 
+
+## Upgrading to >= 1.0
+
+No DSL changes have been made. This is just a stability release from we can work to next releases.
+
+
 ## Upgrading to >= 0.5.0
 
 WineBouncer's exceptions `OAuthUnauthorizedError` and `OAuthForbiddenError` now come with a

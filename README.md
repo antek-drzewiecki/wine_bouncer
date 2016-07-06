@@ -38,7 +38,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 0.5.1'
+gem 'wine_bouncer', '~> 1.0'
 ```
 
 And then execute:
@@ -227,13 +227,13 @@ A full working sample app (or starter template) can be found at [grape-doorkeepe
 
 Since we want the gem tested against several rails versions we use the same way to prepare our development environment as Doorkeeper.
 
-To install the development environment for rails 3.2.18, you can also specify a different rails version to test against.
+To install the development environment for rails 4.2.6, you can also specify a different rails version to test against.
 
-`rails=3.2.18 bundle install`
+`rails=4.2.6 bundle install`
 
 To run the specs.
 
-`rails=3.2.18 bundle exec rake`
+`rails=4.2.6 bundle exec rake`
 
 ## Contributing
 
