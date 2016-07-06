@@ -38,7 +38,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 1.0'
+gem 'wine_bouncer', '~> 1.0.0'
 ```
 
 And then execute:
