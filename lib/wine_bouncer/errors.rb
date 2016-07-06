@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WineBouncer
   module Errors
     class UnconfiguredError < StandardError; end

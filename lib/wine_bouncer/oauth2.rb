@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WineBouncer
   class OAuth2 < Grape::Middleware::Base
     include Doorkeeper::Helpers::Controller

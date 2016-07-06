@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WineBouncer
   module Extension
     def oauth2(*scopes)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WineBouncer
   module Generators
     class InitializerGenerator < ::Rails::Generators::Base

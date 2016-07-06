@@ -1,1 +1,3 @@
+# frozen_string_literal: true
+
 Dummy::Application.config.secret_token = 'c65fd1ffec8275651d1fd06ec3a4914ba644bbeb87729594a3b35fb4b7ad4cccd298d77baf63f7a6513d437e5b95eef9637f9c37a9691c3ed41143d8b5f9a5ef'
