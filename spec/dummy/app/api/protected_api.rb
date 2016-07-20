@@ -55,6 +55,11 @@ module Api
     get '/not_described_world' do
       { hello: 'non described world' }
     end
+
+
+    get '/endpoint/for/swagger' do
+      { hello: 'swagger' }
+    end
   end
 
   class ProtectedApiUnderTest < Grape::API
