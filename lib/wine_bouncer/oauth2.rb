@@ -32,7 +32,8 @@ module WineBouncer
     # Returns true if the doorkeeper token is valid, false otherwise.
     ###
     def valid_doorkeeper_token?(*scopes)
-      doorkeeper_token && doorkeeper_token.acceptable?(scopes)
+      doorkeeper_token && doorkeeper_token.accessible? && (Doorkeeper.configuration.authenticate_admin.call(doorkeeper_token) ||
+          doorkeeper_token.includes_scope?(*scopes))
     end
 
     ############
@@ -100,7 +101,7 @@ module WineBouncer
     private
 
     def set_auth_strategy(strategy)
-      @auth_strategy = WineBouncer::AuthStrategies.const_get("#{strategy.to_s.capitalize}").new
+      @auth_strategy = WineBouncer::AuthStrategies.const_get(strategy.to_s.capitalize).new
     end
   end
 end
