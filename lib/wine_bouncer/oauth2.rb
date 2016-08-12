@@ -89,7 +89,8 @@ module WineBouncer
       context.protected_endpoint = endpoint_protected?
       return unless context.protected_endpoint?
       self.doorkeeper_request = env # set request for later use.
-      doorkeeper_authorize!(*auth_scopes)
+      scopes = auth_scopes
+      doorkeeper_authorize!(*scopes) unless scopes.include? :false
       context.doorkeeper_access_token = doorkeeper_token
     end
 
