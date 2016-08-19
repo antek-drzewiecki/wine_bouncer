@@ -1,5 +1,8 @@
 Changelog
 =========
+## Unreleased
+* Support for Doorkeeper 4.1 and 4.2
+
 ## 1.0
 * [#61](https://github.com/antek-drzewiecki/wine_bouncer/pull/61): Travis cleanup Rails 4.1.x is EOL. Ruby 2.0 is unsupported.
 * [#60](https://github.com/antek-drzewiecki/wine_bouncer/pull/60): Rails 5, Doorkeeper 4, grape 0.16.2 support. Thanks @texpert
