@@ -13,7 +13,7 @@ describe Api::MountedProtectedApiUnderTest, type: :api do
     WineBouncer.configure do |c|
       c.auth_strategy = :protected
 
-      c.define_resource_owner do
+      c.define_resource_owner do |doorkeeper_access_token|
         User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
       end
     end

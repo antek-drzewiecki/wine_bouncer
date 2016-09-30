@@ -32,8 +32,8 @@ module WineBouncer
     # Returns true if the doorkeeper token is valid, false otherwise.
     ###
     def valid_doorkeeper_token?(*scopes)
-      doorkeeper_token && doorkeeper_token.accessible? && (Doorkeeper.configuration.authenticate_admin.call(doorkeeper_token) ||
-          doorkeeper_token.includes_scope?(*scopes))
+      doorkeeper_token&.accessible? && (Doorkeeper.configuration.authenticate_admin.call(context.resource_owner) ||
+        doorkeeper_token.includes_scope?(*scopes))
     end
 
     ############
@@ -90,6 +90,7 @@ module WineBouncer
       return unless context.protected_endpoint?
       self.doorkeeper_request = env # set request for later use.
       scopes = auth_scopes
+      context.resource_owner = WineBouncer.configuration.defined_resource_owner.call(doorkeeper_token)
       doorkeeper_authorize!(*scopes) unless scopes.include? :false
       context.doorkeeper_access_token = doorkeeper_token
     end

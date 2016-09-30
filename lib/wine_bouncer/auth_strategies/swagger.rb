@@ -4,29 +4,15 @@ module WineBouncer
   module AuthStrategies
     class Swagger < ::WineBouncer::BaseStrategy
       def endpoint_protected?
-        has_authorizations? && !!authorization_type_oauth2
+        @oauth2 ||= api_context.options.dig(:route_options, :authorizations, :oauth2)
       end
 
       def has_auth_scopes?
-        endpoint_protected? && !authorization_type_oauth2.empty?
+        endpoint_protected? && !endpoint_protected?.empty?
       end
 
       def auth_scopes
-        authorization_type_oauth2.map { |hash| hash[:scope].to_sym }
-      end
-
-      private
-
-      def has_authorizations?
-        !!endpoint_authorizations
-      end
-
-      def endpoint_authorizations
-         api_context.options[:route_options][:authorizations]
-      end
-
-      def authorization_type_oauth2
-        endpoint_authorizations[:oauth2]
+        endpoint_protected?.map { |hash| hash[:scope].to_sym }
       end
     end
   end

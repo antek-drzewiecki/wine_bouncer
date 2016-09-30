@@ -22,29 +22,29 @@ describe ::WineBouncer::AuthMethods do
     it 'gives true when the token has an resource owner' do
       tested_class.doorkeeper_access_token = token
 
-      expect(tested_class.has_resource_owner?).to be true
+      expect(tested_class.has_resource_owner?).to be_truthy
     end
 
     it 'gives false when the class an no token' do
-      expect(tested_class.has_resource_owner?).to be false
+      expect(tested_class.has_resource_owner?).to be_falsey
     end
 
     it 'gives false when the token has no resource owner' do
       token.resource_owner_id = nil
       tested_class.doorkeeper_access_token = token
 
-      expect(tested_class.has_resource_owner?).to be false
+      expect(tested_class.has_resource_owner?).to be_falsey
     end
   end
 
   context 'has_doorkeeper_token?' do
     it 'returns true when the class has a token' do
       tested_class.doorkeeper_access_token = token
-      expect(tested_class.has_doorkeeper_token?).to be true
+      expect(tested_class.doorkeeper_access_token).to be_truthy
     end
 
     it 'returns false when the class has no token' do
-      expect(tested_class.has_doorkeeper_token?).to be false
+      expect(tested_class.doorkeeper_access_token).to be_falsey
     end
   end
 
@@ -80,7 +80,7 @@ describe ::WineBouncer::AuthMethods do
     end
 
     it 'defaults returns false if not set' do
-      expect(tested_class.protected_endpoint?).to be false
+      expect(tested_class.protected_endpoint?).to be_falsey
     end
   end
 
@@ -94,12 +94,12 @@ describe ::WineBouncer::AuthMethods do
         c.define_resource_owner(&foo)
       end
 
-      expect(tested_class.resource_owner).to be(result)
+      expect(WineBouncer.configuration.defined_resource_owner.call).to be(result)
     end
 
-    it 'raises an argument error when the block is not configured' do
+    it 'raises an argument error when there is no block in configuration' do
       WineBouncer.configuration = WineBouncer::Configuration.new
-      expect { tested_class.resource_owner }.to raise_error(WineBouncer::Errors::UnconfiguredError)
+      expect { WineBouncer.configuration.define_resource_owner }.to raise_error(ArgumentError)
     end
   end
 end
