@@ -29,8 +29,8 @@ Table of Contents
 
 ## Requirements
 - Ruby > 2.3
-- Doorkeeper > 1.4.0 and < 4.3
-- Grape > 0.16 and < 1.0
+- Doorkeeper > 3.1.0 and < 4.3
+- Grape > 0.16.2 and < 0.17
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
 
