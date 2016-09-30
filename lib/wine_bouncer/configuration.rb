@@ -7,9 +7,7 @@ module WineBouncer
   end
 
   class Configuration
-    attr_accessor :auth_strategy
-    attr_accessor :defined_resource_owner
-    attr_writer :auth_strategy
+    attr_accessor :auth_strategy, :defined_resource_owner
 
     def auth_strategy
       @auth_strategy || :default
@@ -20,7 +18,7 @@ module WineBouncer
     end
 
     def define_resource_owner &block
-      fail(ArgumentError, 'define_resource_owner expects a block in the configuration') unless block_given?
+      raise ArgumentError, 'define_resource_owner expects a block in the configuration' unless block_given?
       @defined_resource_owner = block
     end
 
@@ -36,7 +34,8 @@ module WineBouncer
   end
 
   def self.configuration
-    @configuration || fail(Errors::UnconfiguredError.new)
+    raise WineBouncer::Errors::UnconfiguredError.new if @configuration.blank?
+    @configuration
   end
 
   def self.configuration=(config)
@@ -54,12 +53,12 @@ module WineBouncer
     config
   end
 
-  private
-
   ###
   # Returns a new configuration or existing one.
   ###
   def self.config
     @configuration ||= Configuration.new
   end
+
+  private_class_method :config
 end
