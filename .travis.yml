@@ -5,9 +5,7 @@ before_install:
 language: ruby
 cache: bundler
 rvm:
-- 2.1.0
-- 2.2.2
-- 2.2.5
+- 2.3.0
 - 2.3.1
 env:
 
@@ -27,11 +25,3 @@ notifications:
   hipchat:
     rooms:
       secure: SUWenlDzlDbpryO1QzD+rN4MxIBpAAzwsFqnnkyRQ11thRVdvKuT2TUd+RlYImLXDNkvNjqmpXh7mihtcro9g8unR3nF1UKbuAPIv2kCklsio0jAnjVn7+h1l56hsa90Jy9t/YpKtoLx2QNWLz70n8VrtGJMAt53T6tZdgNUp58=
-matrix:
-  exclude:
-    - rvm: 2.1.0
-      env: rails=5.0.0 grape=0.17.0 doorkeeper=4.0.0
-    - rvm: 2.1.0
-      env: rails=5.0.0 grape=0.17.0 doorkeeper=4.1.0
-    - rvm: 2.1.0
-      env: rails=5.0.0 grape=0.17.0 doorkeeper=4.2.0
