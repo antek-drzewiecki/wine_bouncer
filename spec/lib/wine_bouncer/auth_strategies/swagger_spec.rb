@@ -26,36 +26,6 @@ describe ::WineBouncer::AuthStrategies::Swagger do
     end
   end
 
-  context 'has_auth_scopes?' do
-    it 'returns true when the context has the auth key.' do
-      context_double = double()
-      allow(context_double).to receive(:options) { auth_context }
-      klass.api_context = context_double
-      expect(klass.has_auth_scopes?).to eq(true)
-    end
-
-    it 'returns false when the context has no authorizations key.' do
-      context_double = double()
-      allow(context_double).to receive(:options) { { route_options: { some: scopes_map } } }
-      klass.api_context = context_double
-      expect(klass.has_auth_scopes?).to be_falsey
-    end
-
-    it 'returns false when the context has no oauth2 key.' do
-      context_double = double()
-      allow(context_double).to receive(:options) { { route_options: { authorizations: { no_oauth: scopes } } } }
-      klass.api_context = context_double
-      expect(klass.has_auth_scopes?).to be_falsey
-    end
-
-    it 'returns false when the auth scopes contain a blank scope array' do
-      context_double = double()
-      allow(context_double).to receive(:options) { { route_options: { authorizations: { oauth2: [] } } } }
-      klass.api_context = context_double
-      expect(klass.has_auth_scopes?).to eq(false)
-    end
-  end
-
   context 'auth_scopes' do
     it 'returns an array of scopes' do
       context_double = double()

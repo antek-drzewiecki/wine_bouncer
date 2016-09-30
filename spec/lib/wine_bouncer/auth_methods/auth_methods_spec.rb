@@ -68,22 +68,6 @@ describe ::WineBouncer::AuthMethods do
     end
   end
 
-  context 'protected_endpoint?' do
-    it 'when set true it returns true' do
-      tested_class.protected_endpoint = true
-      expect(tested_class.protected_endpoint?).to be true
-    end
-
-    it 'when set false it returns false' do
-      tested_class.protected_endpoint = false
-      expect(tested_class.protected_endpoint?).to be false
-    end
-
-    it 'defaults returns false if not set' do
-      expect(tested_class.protected_endpoint?).to be_falsey
-    end
-  end
-
   context 'resource_owner' do
     it 'runs the configured block' do
       result = 'called block'

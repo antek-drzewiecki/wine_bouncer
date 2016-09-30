@@ -52,7 +52,6 @@ module WineBouncer
     # [ nil ] if none, otherwise an array of [ :scopes ]
     ###
     def auth_scopes
-      return *nil unless auth_strategy.has_auth_scopes?
       auth_strategy.auth_scopes
     end
 
@@ -86,8 +85,8 @@ module WineBouncer
       auth_strategy.api_context = context
       #extend the context with auth methods.
       context.extend(WineBouncer::AuthMethods)
-      context.protected_endpoint = endpoint_protected?
-      return unless context.protected_endpoint?
+      return unless endpoint_protected?
+
       self.doorkeeper_request = env # set request for later use.
       scopes = auth_scopes
       context.resource_owner = WineBouncer.configuration.defined_resource_owner.call(doorkeeper_token)

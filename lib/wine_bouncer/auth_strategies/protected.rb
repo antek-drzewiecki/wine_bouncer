@@ -7,13 +7,9 @@ module WineBouncer
         has_authorizations?
       end
 
-      def has_auth_scopes?
-        endpoint_authorizations &&
-          endpoint_authorizations.key?(:scopes) &&
-          endpoint_authorizations[:scopes].any?
-      end
-
       def auth_scopes
+        return *nil unless endpoint_authorizations && endpoint_authorizations[:scopes].present? &&
+          endpoint_authorizations[:scopes].is_a?(Array)
         endpoint_authorizations[:scopes].map(&:to_sym)
       end
 
@@ -36,7 +32,7 @@ module WineBouncer
       end
 
       def endpoint_authorizations
-        api_context.options[:route_options][:auth]
+        @oauth2 ||= api_context.options.dig(:route_options, :auth)
       end
     end
   end
