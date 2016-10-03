@@ -2,22 +2,6 @@
 
 module WineBouncer
   module AuthMethods
-    attr_accessor :doorkeeper_access_token, :resource_owner
-
-    def client_credential_token?
-      @_doorkeeper_access_token.present? && @_doorkeeper_access_token.resource_owner_id.blank?
-    end
-
-    def doorkeeper_access_token
-      @_doorkeeper_access_token
-    end
-
-    def doorkeeper_access_token=(token)
-      @_doorkeeper_access_token = token
-    end
-
-    def has_resource_owner?
-      @_doorkeeper_access_token&.resource_owner_id
-    end
+    attr_accessor :resource_owner
   end
 end

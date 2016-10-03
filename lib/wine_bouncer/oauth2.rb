@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
+require 'doorkeeper/grape/helpers'
+
 module WineBouncer
   class OAuth2 < Grape::Middleware::Base
-    include Doorkeeper::Helpers::Controller
+    include Doorkeeper::Grape::Helpers
+
+    def error!(message, status = nil, headers = nil)
+      throw :error, message: message, status: status, headers: headers
+    end
+
     ###
     # returns the api context
     ###
@@ -10,30 +17,11 @@ module WineBouncer
       env['api.endpoint']
     end
 
-    ############
-    # DoorKeeper stuff.
-    ############
-
     ###
     # Sets and converts a rack request to a ActionDispatch request, which is required for DoorKeeper to function.
     ###
-    def doorkeeper_request=(env)
-      @_doorkeeper_request = ActionDispatch::Request.new(env)
-    end
-
-    ###
-    # Returns the request context.
-    ###
     def request
-      @_doorkeeper_request
-    end
-
-    ###
-    # Returns true if the doorkeeper token is valid, false otherwise.
-    ###
-    def valid_doorkeeper_token?(*scopes)
-      doorkeeper_token&.accessible? && (Doorkeeper.configuration.authenticate_admin.call(context.resource_owner) ||
-        doorkeeper_token.includes_scope?(*scopes))
+      ActionDispatch::Request.new(env)
     end
 
     ############
@@ -55,22 +43,6 @@ module WineBouncer
       auth_strategy.auth_scopes
     end
 
-    ###
-    # This method handles the authorization, raises errors if authorization has failed.
-    ###
-    def doorkeeper_authorize!(*scopes)
-      scopes = Doorkeeper.configuration.default_scopes if scopes.empty?
-      unless valid_doorkeeper_token?(*scopes)
-        if !doorkeeper_token || !doorkeeper_token.accessible?
-          error = Doorkeeper::OAuth::InvalidTokenResponse.from_access_token(doorkeeper_token)
-          raise WineBouncer::Errors::OAuthUnauthorizedError, error
-        else
-          error = Doorkeeper::OAuth::ForbiddenTokenResponse.from_scopes(scopes)
-          raise WineBouncer::Errors::OAuthForbiddenError, error
-        end
-      end
-    end
-
     ############
     # Grape middleware methods
     ############
@@ -87,11 +59,9 @@ module WineBouncer
       context.extend(WineBouncer::AuthMethods)
       return unless endpoint_protected?
 
-      self.doorkeeper_request = env # set request for later use.
       scopes = auth_scopes
       context.resource_owner = WineBouncer.configuration.defined_resource_owner.call(doorkeeper_token)
       doorkeeper_authorize!(*scopes) unless scopes.include? :false
-      context.doorkeeper_access_token = doorkeeper_token
     end
 
     ###
