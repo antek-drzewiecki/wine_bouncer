@@ -50,6 +50,7 @@ module WineBouncer
   def self.configure
     yield(config)
     config.require_strategies
+    WineBouncer::OAuth2.include WineBouncer::AuthStrategies.const_get(config.auth_strategy.to_s.capitalize)
     config
   end
 

@@ -3,6 +3,8 @@ Changelog
 
 ## Unreleased
 
+## 1.1.0
+* [#63](https://github.com/antek-drzewiecki/wine_bouncer/pull/65): Code refactoring.
 
 ## 1.0.1
 * [#65](https://github.com/antek-drzewiecki/wine_bouncer/pull/65): Support for Doorkeeper 4.1 and 4.2. Thanks @daveallie

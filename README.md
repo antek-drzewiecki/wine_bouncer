@@ -29,6 +29,7 @@ Table of Contents
 
 ## Requirements
 - Ruby > 2.3
+- Ruby on Rails > 4.2.6
 - Doorkeeper > 3.1.0 and < 4.3
 - Grape > 0.16.2 and < 0.17
 
@@ -39,7 +40,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 1.0.1'
+gem 'wine_bouncer', '~> 1.1.0'
 ```
 
 And then execute:
@@ -207,18 +208,6 @@ end
 ```
 
 You probably shouldn't, though.
-
-## Exceptions and Exception handling
-
-This gem raises the following exceptions which can be handled in your Grape API, see [Grape documentation](https://github.com/intridea/grape#exception-handling).
-
-* `WineBouncer::Errors::OAuthUnauthorizedError`
-   when the request is unauthorized.
-* `WineBouncer::Errors::OAuthForbiddenError`
-   when the token is found but scopes do not match.
-
-Detailed doorkeeper error response can be found in the error's `response` attribute. You could use
-it to compose the actual HTTP response to API users.
 
 ## Example/Template Application
 

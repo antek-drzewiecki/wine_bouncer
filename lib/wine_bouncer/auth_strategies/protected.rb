@@ -2,7 +2,7 @@
 
 module WineBouncer
   module AuthStrategies
-    class Protected < WineBouncer::BaseStrategy
+    module Protected
       def endpoint_protected?
         has_authorizations?
       end
@@ -32,7 +32,7 @@ module WineBouncer
       end
 
       def endpoint_authorizations
-        @oauth2 ||= api_context.options.dig(:route_options, :auth)
+        @oauth2 ||= context.options.dig(:route_options, :auth)
       end
     end
   end

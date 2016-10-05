@@ -6,15 +6,10 @@ module WineBouncer
   class OAuth2 < Grape::Middleware::Base
     include Doorkeeper::Grape::Helpers
 
+    attr_accessor :context
+
     def error!(message, status = nil, headers = nil)
       throw :error, message: message, status: status, headers: headers
-    end
-
-    ###
-    # returns the api context
-    ###
-    def context
-      env['api.endpoint']
     end
 
     ###
@@ -25,54 +20,19 @@ module WineBouncer
     end
 
     ############
-    # Authorization control.
-    ############
-
-    ###
-    # returns true if the endpoint is protected, otherwise false
-    ###
-    def endpoint_protected?
-      auth_strategy.endpoint_protected?
-    end
-
-    ###
-    # Returns all auth scopes from an protected endpoint.
-    # [ nil ] if none, otherwise an array of [ :scopes ]
-    ###
-    def auth_scopes
-      auth_strategy.auth_scopes
-    end
-
-    ############
     # Grape middleware methods
     ############
 
-    ###
-    # Before do.
-    ###
     def before
       return if WineBouncer.configuration.disable_block.call
 
-      set_auth_strategy(WineBouncer.configuration.auth_strategy)
-      auth_strategy.api_context = context
-      #extend the context with auth methods.
-      context.extend(WineBouncer::AuthMethods)
+      @context = env['api.endpoint']
       return unless endpoint_protected?
 
       scopes = auth_scopes
+      WineBouncer::Helpers.object_attr_accessor(context, 'resource_owner')
       context.resource_owner = WineBouncer.configuration.defined_resource_owner.call(doorkeeper_token)
       doorkeeper_authorize!(*scopes) unless scopes.include? :false
-    end
-
-    ###
-    # Strategy
-    ###
-    attr_reader :auth_strategy
-
-    private
-
-    def set_auth_strategy(strategy)
-      @auth_strategy = WineBouncer::AuthStrategies.const_get(strategy.to_s.capitalize).new
     end
   end
 end

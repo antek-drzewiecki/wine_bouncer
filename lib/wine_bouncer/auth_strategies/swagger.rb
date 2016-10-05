@@ -2,9 +2,9 @@
 
 module WineBouncer
   module AuthStrategies
-    class Swagger < ::WineBouncer::BaseStrategy
+    module Swagger
       def endpoint_protected?
-        @oauth2 ||= api_context.options.dig(:route_options, :authorizations, :oauth2)
+        @oauth2 ||= context.options.dig(:route_options, :authorizations, :oauth2)
       end
 
       def auth_scopes

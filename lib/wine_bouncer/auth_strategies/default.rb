@@ -2,9 +2,9 @@
 
 module WineBouncer
   module AuthStrategies
-    class Default < ::WineBouncer::BaseStrategy
+    module Default
       def endpoint_protected?
-        @oauth2 ||= api_context.options.dig(:route_options, :auth)
+        @oauth2 ||= context.options.dig(:route_options, :auth)
       end
 
       def auth_scopes
