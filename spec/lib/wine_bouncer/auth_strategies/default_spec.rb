@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'wine_bouncer/auth_strategies/default'
 
-RSpec.describe ::WineBouncer::AuthStrategies::Default do
+RSpec.describe WineBouncer::AuthStrategies::Default do
   let(:scopes) { %w(public private) }
   let(:scopes_hash) { { scopes: scopes } }
   let(:auth_context) { { route_options: { auth: scopes_hash } } }

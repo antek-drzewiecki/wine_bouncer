@@ -20,13 +20,13 @@ RSpec.describe Api::MountedProtectedApiUnderTest, type: :api do
   end
 
   context 'when WineBouncer is disabled' do
-    before :all do
+    before do
       WineBouncer.configure do |c|
         c.disable { true }
       end
     end
 
-    after :all do
+    after do
       WineBouncer.configure do |c|
         c.disable { false }
       end
