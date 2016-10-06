@@ -34,7 +34,7 @@ module WineBouncer
   end
 
   def self.configuration
-    raise WineBouncer::Errors::UnconfiguredError.new if @configuration.blank?
+    raise ArgumentError, 'WineBouncer is not configured!' if @configuration.blank?
     @configuration
   end
 
