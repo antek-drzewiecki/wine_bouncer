@@ -27,11 +27,16 @@ module WineBouncer
       return if WineBouncer.configuration.disable_block.call
 
       @context = env['api.endpoint']
-      return unless endpoint_protected?
-
-      scopes = auth_scopes
       WineBouncer::Helpers.object_attr_accessor(context, 'resource_owner')
       context.resource_owner = WineBouncer.configuration.defined_resource_owner.call(doorkeeper_token)
+      route_options = context.options[:route_options]
+      scopes = []
+      if WineBouncer.configuration.auth_strategy == :protected && !route_options.key?(:protected)
+        route_options[:protected] = true
+        scopes.unshift(Doorkeeper.configuration.default_scopes.all)
+      end
+      return unless route_options[:protected]
+      # scopes = auth_scopes
       doorkeeper_authorize!(*scopes) unless scopes.include? :false
     end
   end

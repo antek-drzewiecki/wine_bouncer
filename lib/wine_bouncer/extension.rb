@@ -3,24 +3,17 @@
 module WineBouncer
   module Extension
     def oauth2(*scopes)
+      # Create :description hash and :security array if missing: Open API(Swagger) 2.0 compliance
       description = route_setting(:description) || route_setting(:description, {})
+      description[:security] = [] unless description[:security]
 
-      # Create :security hash if missing: Open API(Swagger) 2.0 compliance
-      description[:security] = Array.new unless description[:security]
-      security = description[:security]
-      security.unshift({ inline: scopes })
-      api_scopes_undefined = security.all? { |x|
-        x.each_value { |y|
-          y.empty? || y.all? { |z| z.blank?}
-        }
-      }
-
-      if WineBouncer.configuration.auth_strategy == :protected
-        # If no scopes defined on the API, use default Doorkeeper scopes, because of :protected auth_strategy
-        security.unshift({ doorkeeper: Doorkeeper.configuration.default_scopes.all }) if api_scopes_undefined
-        description[:protected] = true
+      # If no scopes defined on the API, use default Doorkeeper scopes
+      scopes.unshift(Doorkeeper.configuration.default_scopes.all) if scopes.empty?
+      description[:security].unshift({ inline: scopes })
+      if scopes.include?('false')
+        description[:protected] = false
       else
-        description[:protected] = false if api_scopes_undefined
+        description[:protected] = true
       end
     end
 
