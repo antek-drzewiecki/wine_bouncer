@@ -7,11 +7,12 @@ RSpec.describe Api::MountedDefaultApiUnderTest, type: :api do
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
+  # not a default scope
+  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' }
 
   before(:example) do
     WineBouncer.configure do |c|
-      c.auth_strategy = :default
+      c.auth_strategy = %i(default)
 
       c.define_resource_owner do |doorkeeper_access_token|
         User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
@@ -22,7 +23,6 @@ RSpec.describe Api::MountedDefaultApiUnderTest, type: :api do
   context 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
       get '/default_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -30,7 +30,6 @@ RSpec.describe Api::MountedDefaultApiUnderTest, type: :api do
 
     it 'gives access when tokens are correct and an non doorkeeper default scope is used.' do
       get '/default_api/oauth2_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')

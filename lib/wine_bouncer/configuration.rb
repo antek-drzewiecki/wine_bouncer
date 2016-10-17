@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module WineBouncer
-
   class << self
     attr_accessor :configuration
   end
@@ -10,17 +9,13 @@ module WineBouncer
     attr_accessor :auth_strategy, :defined_resource_owner
 
     def auth_strategy
-      @auth_strategy ||= :default
+      @auth_strategy ||= %i(default) # :protected, :swagger and :swagger_2 currently implemented
     end
 
-    def require_strategies
-      require "wine_bouncer/auth_strategies/#{auth_strategy}"
-    end
-
-    def define_resource_owner &block
-      @defined_resource_owner = block || -> (doorkeeper_access_token) {
+    def define_resource_owner(&block)
+      @defined_resource_owner = block || lambda do |doorkeeper_access_token|
         User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
-      }
+      end
     end
 
     # when the block evaluates to true, WineBouncer should be disabled
@@ -35,12 +30,11 @@ module WineBouncer
   end
 
   def self.configuration
-    @configuration ||= self.configure
+    @configuration ||= configure
   end
 
   def self.configuration=(config)
     @configuration = config
-    @configuration.require_strategies
   end
 
   ###
@@ -49,9 +43,7 @@ module WineBouncer
   ###
   def self.configure
     yield config if block_given?
-    config.require_strategies
     config.define_resource_owner unless block_given?
-    WineBouncer::OAuth2.include WineBouncer::AuthStrategies.const_get(config.auth_strategy.to_s.capitalize)
     config
   end
 
