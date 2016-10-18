@@ -5,11 +5,17 @@ Upgrading WineBouncer
 
 Auth strategies should be written now as an array of symbols in the WineBouncer's initializer:
 
+```
 config.auth_strategy = %i(default) # Although this could be entirely skipped - if not specified, the auth strategy is automatically set to %i(default).
+```
 
-or
+or, for using both :swagger and :protected strategies:
 
+```
 config.auth_strategy = %i(protected swagger)
+```
+
+_NOTE_: Doorkeeper 3.1.0 is not compatible with Rails >= 5.0.0 - use Doorkeeper >= 4.0.0 
 
 ## Upgrading to >= 1.0
 

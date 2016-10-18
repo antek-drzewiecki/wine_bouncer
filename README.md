@@ -30,7 +30,7 @@ Table of Contents
 ## Requirements
 - Ruby >= 2.2.2
 - Ruby on Rails >= 4.2.6 and <= 5.0.0.1
-- Doorkeeper >= 3.1.0 and <= 4.2.0
+- Doorkeeper = 3.1.0 (only working with Rails 4.2.x) and >=4.0.0 <= 4.2.0 (working with Rails 4.2.x and 5.0.x)
 - Grape >= 0.15.0 and < 0.18.0
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
