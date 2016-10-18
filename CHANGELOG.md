@@ -3,6 +3,8 @@ Changelog
 
 ## Unreleased
 
+## 1.1.0
+* [#63](https://github.com/antek-drzewiecki/wine_bouncer/pull/65): Auth strategies could coexist being specified in an array. Grape support restricted to 0.15 - 0.18. Code refactoring. Swagger 2.0 auth strategy implementation started. 
 
 ## 1.0.1
 * [#65](https://github.com/antek-drzewiecki/wine_bouncer/pull/65): Support for Doorkeeper 4.1 and 4.2. Thanks @daveallie

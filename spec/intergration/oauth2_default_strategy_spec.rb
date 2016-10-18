@@ -3,17 +3,18 @@
 require 'rails_helper'
 require 'json'
 
-describe Api::MountedDefaultApiUnderTest, type: :api do
+RSpec.describe Api::MountedDefaultApiUnderTest, type: :api do
   let(:user) { FactoryGirl.create :user }
   let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
   let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
+  # not a default scope
+  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' }
 
   before(:example) do
     WineBouncer.configure do |c|
-      c.auth_strategy = :default
+      c.auth_strategy = %i(default)
 
-      c.define_resource_owner do
+      c.define_resource_owner do |doorkeeper_access_token|
         User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
       end
     end
@@ -22,7 +23,6 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
   context 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
       get '/default_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -30,7 +30,6 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
 
     it 'gives access when tokens are correct and an non doorkeeper default scope is used.' do
       get '/default_api/oauth2_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -38,32 +37,38 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
     end
 
     it 'raises an authentication error when the token is invalid' do
-      expect { get '/default_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}-invalid" }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+      get '/default_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}-invalid"
+      expect(last_response.status).to eq(401)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
 
     it 'raises an oauth authentication error when no token is given' do
-      expect { get '/default_api/protected' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+      get '/default_api/protected'
+      expect(last_response.status).to eq(401)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
 
     it 'raises an auth forbidden authentication error when the user scope is not correct' do
-      expect { get '/default_api/protected_with_private_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
+      get '/default_api/protected_with_private_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
+      expect(last_response.status).to eq(403)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
   end
 
   context 'unprotected endpoint' do
     it 'allows to call an unprotected endpoint without token' do
       get '/default_api/unprotected'
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
-
       expect(json).to have_key('hello')
       expect(json['hello']).to eq('unprotected world')
     end
 
     it 'allows to call an unprotected endpoint with token' do
       get '/default_api/unprotected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -74,7 +79,6 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
   context 'protected_without_scopes' do
     it 'allows to call an protected endpoint without scopes' do
       get '/default_api/protected_without_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -82,18 +86,23 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
     end
 
     it 'raises an error when an protected endpoint without scopes is called without token ' do
-      expect { get '/default_api/protected_without_scope' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+      get '/default_api/protected_without_scope'
+      expect(last_response.status).to eq(401)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
 
     it 'raises an error because the user does not have the default scope' do
-      expect { get '/default_api/protected_without_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{unscoped_token.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
+      get '/default_api/protected_without_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{unscoped_token.token}"
+      expect(last_response.status).to eq(403)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
   end
 
   context 'oauth2_dsl' do
     it 'allows to call an protected endpoint without scopes' do
       get '/default_api/oauth2_dsl', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
       expect(json).to have_key('hello')
@@ -101,7 +110,10 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
     end
 
     it 'raises an error when an protected endpoint without scopes is called without token ' do
-      expect { get '/default_api/oauth2_dsl' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+      get '/default_api/oauth2_dsl'
+      expect(last_response.status).to eq(401)
+      json = JSON.parse(last_response.body)
+      expect(json).to have_key('error')
     end
 
     context 'without parameters' do
@@ -114,11 +126,17 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       end
 
       it 'raises an error when an protected endpoint without scopes is called without token ' do
-        expect { get '/default_api/oauth2_dsl_default_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+        get '/default_api/oauth2_dsl_default_scopes'
+        expect(last_response.status).to eq(401)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('error')
       end
 
       it 'raises an error when token scopes are not default scopes ' do
-        expect { get '/default_api/oauth2_dsl_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
+        get '/default_api/oauth2_dsl_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
+        expect(last_response.status).to eq(403)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('error')
       end
     end
 
@@ -132,11 +150,17 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       end
 
       it 'raises an error when an protected endpoint without scopes is called without token ' do
-        expect { get '/default_api/oauth2_dsl_custom_scope' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+        get '/default_api/oauth2_dsl_custom_scope'
+        expect(last_response.status).to eq(401)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('error')
       end
 
       it 'raises an error when token scopes do not match' do
-        expect { get '/default_api/oauth2_dsl_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
+        get '/default_api/oauth2_dsl_custom_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
+        expect(last_response.status).to eq(403)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('error')
       end
     end
 
@@ -160,7 +184,10 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       end
 
       it 'raises an error scope does not match any of the scopes' do
-        expect { get '/default_api/oauth2_dsl_multiple_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
+        get '/default_api/oauth2_dsl_multiple_scopes'
+        expect(last_response.status).to eq(401)
+        json = JSON.parse(last_response.body)
+        expect(json).to have_key('error')
       end
     end
   end
@@ -178,10 +205,8 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
   context 'resource_owner' do
     it 'is available in the endpoint' do
       get '/default_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
-
       expect(last_response.status).to eq(200)
       json = JSON.parse(last_response.body)
-
       expect(json).to have_key('hello')
       expect(json['hello']).to eq(user.name)
     end

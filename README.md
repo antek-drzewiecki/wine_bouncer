@@ -28,9 +28,10 @@ Table of Contents
 
 
 ## Requirements
-- Ruby > 2.0
-- Doorkeeper > 1.4.0 and < 4.3
-- Grape > 0.10 and < 1.0
+- Ruby >= 2.2.2
+- Ruby on Rails >= 4.2.6 and <= 5.0.0.1
+- Doorkeeper = 3.1.0 (only working with Rails 4.2.x) and >=4.0.0 <= 4.2.0 (working with Rails 4.2.x and 5.0.x)
+- Grape >= 0.15.0 and < 0.18.0
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
 
@@ -39,7 +40,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 1.0.1'
+gem 'wine_bouncer', '~> 1.1.0'
 ```
 
 And then execute:
@@ -66,7 +67,7 @@ This creates a rails initializer in your Rails app at `config/initializers/wine_
 
 ``` ruby
 WineBouncer.configure do |config|
-  config.auth_strategy = :default
+  config.auth_strategy = %i(default)
 
   config.define_resource_owner do
     User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
@@ -136,6 +137,8 @@ Behaviour of the authentication can be customized by selecting an authentication
 #### Default
 The default strategy only authenticates endpoints which are annotated by the `oauth2` method. Un-annotated endpoints still can be accessed without authentication.
 
+If the config.auth_strategy array is ommited from the initializer file or commented, the :default strategy will be set and used automatically. 
+
 #### Swagger
 
 WineBouncer comes with a strategy that can be perfectly used with [grape-swagger](https://github.com/tim-vandecasteele/grape-swagger) with a syntax compliant with the [swagger spec](https://github.com/wordnik/swagger-spec/).
@@ -149,7 +152,7 @@ Create a rails initializer in your Rails app at `config/initializers/wine_bounce
 
 ``` ruby
 WineBouncer.configure do |config|
-    config.auth_strategy = :swagger
+    config.auth_strategy = %i(swagger)
 
     config.define_resource_owner do
             User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
@@ -184,6 +187,27 @@ If the authorization method is not set, the end point is assumed to be __protect
 To protect your endpoint with other scopes append the following method `oauth2 'first scope', 'second scope'`.
 
 
+#### Swagger 2.0
+
+This strategy is in a work-in-progress state. It fetches all the authorixation scopes from the Swagger route 
+description, but could not yet differentiate the oauth grant type, i.e. the Security Definitions defined in Swagger document could not
+ yet be accessed at runtime in the grape-swagger gem. So, currently, all the scopes would be fetched regardless of 
+ the OAuth grant type.
+ 
+_NOTE_:  [Swagger-UI is supporting only implicit flow yet](https://github.com/swagger-api/swagger-ui/issues/2406#issuecomment-248651879) 
+
+The symbolized name of the Swagger 2.0 auth strategy is :swagger_2 - see the initializer example below:
+
+``` ruby
+WineBouncer.configure do |config|
+    config.auth_strategy = %i(swagger_2)
+
+    config.define_resource_owner do
+            User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+    end
+end
+```
+
 ### Token information
 
 WineBouncer comes with free extras! Methods for `resource_owner` and `doorkeeper_access_token` get included in your endpoints. You can use them to get the current resource owner, and the access_token object of doorkeeper.
@@ -207,18 +231,6 @@ end
 ```
 
 You probably shouldn't, though.
-
-## Exceptions and Exception handling
-
-This gem raises the following exceptions which can be handled in your Grape API, see [Grape documentation](https://github.com/intridea/grape#exception-handling).
-
-* `WineBouncer::Errors::OAuthUnauthorizedError`
-   when the request is unauthorized.
-* `WineBouncer::Errors::OAuthForbiddenError`
-   when the token is found but scopes do not match.
-
-Detailed doorkeeper error response can be found in the error's `response` attribute. You could use
-it to compose the actual HTTP response to API users.
 
 ## Example/Template Application
 

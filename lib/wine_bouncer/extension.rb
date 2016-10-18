@@ -2,19 +2,17 @@
 
 module WineBouncer
   module Extension
+    include WineBouncer::Helpers
+
     def oauth2(*scopes)
-      scopes = Doorkeeper.configuration.default_scopes.all if scopes.all? { |x| x.nil? }
-      description = if respond_to?(:route_setting) # >= grape-0.10.0
-                      route_setting(:description) || route_setting(:description, {})
-                    else
-                      @last_description ||= {}
-                    end
-      # case WineBouncer.configuration.auth_strategy
-      # when :default
-      description[:auth] = { scopes: scopes }
-      # when :swagger
-      description[:authorizations] = { oauth2: scopes.map { |x| { scope: x } } }
-      # end
+      description = route_setting(:description) || route_setting(:description, {})
+
+      # Fetch scopes for all defined auth_strategies and make them a uniq set with inline defined scopes
+      # description[:scopes] = (scopes | fetch_scopes(description)).uniq
+      description[:scopes] = scopes
+
+      fetch_scopes(description).uniq
+      description[:protected] = !description[:scopes].nil?
     end
 
     Grape::API.extend self

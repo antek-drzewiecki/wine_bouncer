@@ -1,32 +1,21 @@
 # frozen_string_literal: true
 
 module WineBouncer
-
   class << self
     attr_accessor :configuration
   end
 
   class Configuration
-    attr_accessor :auth_strategy
-    attr_accessor :defined_resource_owner
-    attr_writer :auth_strategy
+    attr_accessor :auth_strategy, :defined_resource_owner
 
     def auth_strategy
-      @auth_strategy || :default
+      @auth_strategy ||= %i(default) # :protected, :swagger and :swagger_2 currently implemented
     end
 
-    def require_strategies
-      require "wine_bouncer/auth_strategies/#{auth_strategy}"
-    end
-
-    def define_resource_owner &block
-      fail(ArgumentError, 'define_resource_owner expects a block in the configuration') unless block_given?
-      @defined_resource_owner = block
-    end
-
-    def defined_resource_owner
-      fail(Errors::UnconfiguredError, 'Please define define_resource_owner to configure the resource owner') unless @defined_resource_owner
-      @defined_resource_owner
+    def define_resource_owner(&block)
+      @defined_resource_owner = block || lambda do |doorkeeper_access_token|
+        User.find(doorkeeper_access_token.resource_owner_id) if doorkeeper_access_token
+      end
     end
 
     # when the block evaluates to true, WineBouncer should be disabled
@@ -41,12 +30,11 @@ module WineBouncer
   end
 
   def self.configuration
-    @configuration || fail(Errors::UnconfiguredError.new)
+    @configuration ||= configure
   end
 
   def self.configuration=(config)
     @configuration = config
-    @configuration.require_strategies
   end
 
   ###
@@ -54,12 +42,10 @@ module WineBouncer
   # Requires all strategy specific files.
   ###
   def self.configure
-    yield(config)
-    config.require_strategies
+    yield config if block_given?
+    config.define_resource_owner unless block_given?
     config
   end
-
-  private
 
   ###
   # Returns a new configuration or existing one.
@@ -67,4 +53,6 @@ module WineBouncer
   def self.config
     @configuration ||= Configuration.new
   end
+
+  private_class_method :config
 end
