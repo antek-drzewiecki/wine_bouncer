@@ -11,6 +11,30 @@ rvm:
 - 2.3.1
 env:
 
+- rails=4.2.7 grape=0.10.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.11.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.12.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.13.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.14.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.15.0 doorkeeper=3.1.0
+- rails=4.2.7 grape=0.10.0 doorkeeper=4.2.0
+- rails=4.2.7 grape=0.11.0 doorkeeper=4.2.0
+- rails=4.2.7 grape=0.12.0 doorkeeper=4.2.0
+- rails=4.2.7 grape=0.13.0 doorkeeper=4.2.0
+- rails=4.2.7 grape=0.14.0 doorkeeper=4.2.0
+- rails=4.2.7 grape=0.15.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.10.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.11.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.12.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.13.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.14.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.15.0 doorkeeper=3.1.0
+- rails=5.0.0 grape=0.10.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.11.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.12.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.13.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.14.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=0.15.0 doorkeeper=4.2.0
 - rails=4.2.7 grape=0.16.2 doorkeeper=3.1.0
 - rails=4.2.7 grape=0.16.2 doorkeeper=4.0.0
 - rails=4.2.6 grape=0.16.2 doorkeeper=4.1.0
