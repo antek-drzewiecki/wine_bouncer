@@ -15,6 +15,7 @@ gem 'grape', ENV['grape']
 gem 'doorkeeper', ENV['doorkeeper']
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
+gem 'simplecov', :require => false, :group => :test
 
 # Specify your gem's dependencies in wine_bouncer.gemspec
 gemspec
