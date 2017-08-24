@@ -100,7 +100,7 @@ module WineBouncer
     private
 
     def set_auth_strategy(strategy)
-      @auth_strategy = WineBouncer::AuthStrategies.const_get("#{strategy.to_s.capitalize}").new
+      @auth_strategy = WineBouncer::AuthStrategies.const_get(strategy.to_s.capitalize.to_s).new
     end
   end
 end

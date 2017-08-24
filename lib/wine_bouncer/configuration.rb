@@ -20,12 +20,12 @@ module WineBouncer
     end
 
     def define_resource_owner &block
-      fail(ArgumentError, 'define_resource_owner expects a block in the configuration') unless block_given?
+      raise(ArgumentError, 'define_resource_owner expects a block in the configuration') unless block_given?
       @defined_resource_owner = block
     end
 
     def defined_resource_owner
-      fail(Errors::UnconfiguredError, 'Please define define_resource_owner to configure the resource owner') unless @defined_resource_owner
+      raise(Errors::UnconfiguredError, 'Please define define_resource_owner to configure the resource owner') unless @defined_resource_owner
       @defined_resource_owner
     end
 
@@ -41,7 +41,7 @@ module WineBouncer
   end
 
   def self.configuration
-    @configuration || fail(Errors::UnconfiguredError.new)
+    @configuration || raise(Errors::UnconfiguredError.new)
   end
 
   def self.configuration=(config)
@@ -59,7 +59,7 @@ module WineBouncer
     config
   end
 
-  private
+  private_class_method
 
   ###
   # Returns a new configuration or existing one.
