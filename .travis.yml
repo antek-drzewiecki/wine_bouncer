@@ -8,14 +8,12 @@ rvm:
 - 2.1.0
 - 2.2.2
 - 2.2.5
-- 2.3.1
+- 2.3.3
 env:
 
 - rails=4.2.6 grape=0.15.0 doorkeeper=3.1.0
-- rails=4.2.6 grape=0.15.0 doorkeeper=4.0.0
-- rails=4.2.6 grape=0.15.0 doorkeeper=4.1.0
-- rails=4.2.6 grape=0.15.0 doorkeeper=4.2.0
-- rails=4.2.6 grape=0.16.2 doorkeeper=3.1.0
+- rails=4.2.6 grape=1.0.0 doorkeeper=3.1.0
+- rails=4.2.6 grape=0.16.2 doorkeeper=4.2.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.0.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.1.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.2.0
