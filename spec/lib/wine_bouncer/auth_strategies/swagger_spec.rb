@@ -15,14 +15,14 @@ describe ::WineBouncer::AuthStrategies::Swagger do
       context_double = double()
       allow(context_double).to receive(:options) { auth_context }
       klass.api_context = context_double
-      expect(klass.send :endpoint_authorizations).to eq(scopes_map)
+      expect(klass.send(:endpoint_authorizations)).to eq(scopes_map)
     end
 
     it 'returns nil when the authentication key has no hash key.' do
       context_double = double()
       allow(context_double).to receive(:options) { { route_options: { some: scopes_map } } }
       klass.api_context = context_double
-      expect(klass.send :endpoint_authorizations).to eq(nil)
+      expect(klass.send(:endpoint_authorizations)).to eq(nil)
     end
   end
 
@@ -31,14 +31,14 @@ describe ::WineBouncer::AuthStrategies::Swagger do
       context_double = double()
       allow(context_double).to receive(:options) { auth_context }
       klass.api_context = context_double
-      expect(klass.send :has_authorizations?).to eq(true)
+      expect(klass.send(:has_authorizations?)).to eq(true)
     end
 
     it 'returns false when there is no authentication key.' do
       context_double = double()
       allow(context_double).to receive(:options) { { route_options: { some: scopes_map } } }
       klass.api_context = context_double
-      expect(klass.send :has_authorizations?).to eq(false)
+      expect(klass.send(:has_authorizations?)).to eq(false)
     end
   end
 
@@ -47,14 +47,14 @@ describe ::WineBouncer::AuthStrategies::Swagger do
       context_double = double()
       allow(context_double).to receive(:options) { auth_context }
       klass.api_context = context_double
-      expect(klass.send :authorization_type_oauth2).to eq(scopes)
+      expect(klass.send(:authorization_type_oauth2)).to eq(scopes)
     end
 
     it 'returns nil when there is no oauth2 key.' do
       context_double = double()
       allow(context_double).to receive(:options) { { route_options: { authorizations: { no_oauth: scopes } } } }
       klass.api_context = context_double
-      expect(klass.send :authorization_type_oauth2).to eq(nil)
+      expect(klass.send(:authorization_type_oauth2)).to eq(nil)
     end
   end
 

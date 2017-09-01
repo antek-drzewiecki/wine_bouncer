@@ -15,14 +15,14 @@ describe ::WineBouncer::AuthStrategies::Default do
       context_double = double()
       allow(context_double).to receive(:options) { auth_context }
       klass.api_context = context_double
-      expect(klass.send :endpoint_authorizations).to eq(scopes_hash)
+      expect(klass.send(:endpoint_authorizations)).to eq(scopes_hash)
     end
 
     it 'returns nil when the authentication key has no hash key.' do
       context_double = double()
       allow(context_double).to receive(:options) { { route_options: { some: scopes_hash } } }
       klass.api_context = context_double
-      expect(klass.send :endpoint_authorizations).to eq(nil)
+      expect(klass.send(:endpoint_authorizations)).to eq(nil)
     end
   end
 
