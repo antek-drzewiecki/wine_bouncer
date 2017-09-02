@@ -4,6 +4,9 @@ Changelog
 ## Unreleased
 
 
+## 1.0.2
+* [#68](https://github.com/antek-drzewiecki/wine_bouncer/pull/68): Update dependency to allow grape v1. Thanks @chandeeland
+
 ## 1.0.1
 * [#65](https://github.com/antek-drzewiecki/wine_bouncer/pull/65): Support for Doorkeeper 4.1 and 4.2. Thanks @daveallie
 
