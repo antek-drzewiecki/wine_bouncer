@@ -13,10 +13,12 @@ env:
 - rails=4.2.6 grape=0.15.0 doorkeeper=3.1.0
 - rails=4.2.6 grape=1.0.0 doorkeeper=3.1.0
 - rails=4.2.6 grape=0.16.2 doorkeeper=4.2.0
+- rails=4.2.6 grape=0.16.2 doorkeeper=4.3.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.0.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.1.0
 - rails=5.0.0 grape=0.16.2 doorkeeper=4.2.0
 - rails=5.0.0 grape=1.0.0 doorkeeper=4.2.0
+- rails=5.0.0 grape=1.0.0 doorkeeper=4.3.0
 
 addons:
   code_climate:
