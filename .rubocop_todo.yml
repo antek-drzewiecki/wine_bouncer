@@ -112,7 +112,7 @@ Style/LeadingCommentSpace:
 
 # Offense count: 21
 # Cop supports --auto-correct.
-Style/MethodCallParentheses:
+Style/MethodCallWithoutArgsParentheses:
   Exclude:
     - 'spec/lib/wine_bouncer/auth_strategies/default_spec.rb'
     - 'spec/lib/wine_bouncer/auth_strategies/swagger_spec.rb'
