@@ -5,9 +5,9 @@ before_install:
 language: ruby
 cache: bundler
 rvm:
-- 2.2.2
-- 2.2.5
-- 2.3.3
+- 2.3.7
+- 2.4.4
+- 2.5.1
 env:
 
 - rails=4.2.6 grape=0.15.0 doorkeeper=3.1.0
