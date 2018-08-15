@@ -30,7 +30,7 @@ Table of Contents
 ## Requirements
 - Ruby > 2.1
 - Doorkeeper > 1.4.0 and < 4.3
-- Grape > 0.10 and < 1.1
+- Grape > 0.10 and < 1.2
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
 
