@@ -29,7 +29,7 @@ Table of Contents
 
 ## Requirements
 - Ruby > 2.1
-- Doorkeeper > 1.4.0 and < 4.3
+- Doorkeeper > 1.4.0 and < 5
 - Grape > 0.10 and < 1.2
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
@@ -39,7 +39,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 1.0.2'
+gem 'wine_bouncer', '~> 1.0.3'
 ```
 
 And then execute:
