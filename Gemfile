@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 ENV['grape'] ||= '1.1.0'
 ENV['rails'] ||= '5.0.0'
-ENV['doorkeeper'] ||= '4.0.0'
+ENV['doorkeeper'] ||= '5.0.0'
 
 ruby '>= 2.2.2' if ENV['rails'][0].to_i > 4
 
