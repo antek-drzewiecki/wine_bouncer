@@ -41,12 +41,12 @@ module WineBouncer
   end
 
   def self.configuration
-    @configuration || raise(Errors::UnconfiguredError.new)
+    @config || raise(Errors::UnconfiguredError.new)
   end
 
   def self.configuration=(config)
-    @configuration = config
-    @configuration.require_strategies
+    @config = config
+    @config.require_strategies
   end
 
   ###
@@ -65,6 +65,6 @@ module WineBouncer
   # Returns a new configuration or existing one.
   ###
   def self.config
-    @configuration ||= Configuration.new
+    @config ||= Configuration.new
   end
 end

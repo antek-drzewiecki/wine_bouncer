@@ -2,7 +2,6 @@
 
 module WineBouncer
   module AuthMethods
-    attr_accessor :doorkeeper_access_token
 
     def protected_endpoint=(protected)
       @protected_endpoint = protected

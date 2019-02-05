@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'database_cleaner', '~> 1.6'
   spec.add_development_dependency 'rubocop', '0.58.2'
   spec.add_development_dependency 'yard', '~> 0.9.16'
+  spec.add_development_dependency 'simplecov'
 end

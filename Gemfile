@@ -7,12 +7,10 @@ ENV['rails'] ||= '5.0.0'
 ENV['doorkeeper'] ||= '5.0.0'
 
 gem 'rails', ENV['rails']
-gem "sqlite3"
+gem 'sqlite3', '~> 1.3.6'
 
 gem 'grape', ENV['grape']
 gem 'doorkeeper', ENV['doorkeeper']
-
-gem 'simplecov', :require => false, :group => :test
 
 # Specify your gem's dependencies in wine_bouncer.gemspec
 gemspec
