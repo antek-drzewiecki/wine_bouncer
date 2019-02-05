@@ -8,8 +8,8 @@ describe ::WineBouncer::AuthMethods do
       include ::WineBouncer::AuthMethods
     end.new
   end
-  let(:user) { FactoryGirl.create(:user) }
-  let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
+  let(:user) { FactoryBot.create(:user) }
+  let(:token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
 
   context 'doorkeeper_access_token' do
     it 'sets and gets a token' do

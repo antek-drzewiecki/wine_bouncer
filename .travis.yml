@@ -1,9 +1,19 @@
 sudo: false
-before_install:
-- gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-- gem install bundler -v '< 2'
 language: ruby
-cache: bundler
+
+before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+
+
+install:
+  - bundle install --without production --path=${BUNDLE_PATH:-vendor/bundle}  # Install ruby gems, excluding production only gems such as unicorn (already present by default in Travis)
+
+cache:
+  - bundler: true
+
 rvm:
 - 2.3.8
 - 2.4.5
@@ -11,35 +21,42 @@ rvm:
 - 2.6.0
 
 env:
-- rails=4.2.11 grape=0.16.2 doorkeeper=3.1.0
-- rails=4.2.11 grape=0.16.2 doorkeeper=4.2.6
-- rails=4.2.11 grape=1.1.0 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=0.16.2 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=0.19.2 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=1.0.0 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=1.1.0 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=1.2.3 doorkeeper=4.4.3
-- rails=5.0.7.1 grape=1.0.0 doorkeeper=5.0.2
-- rails=5.0.7.1 grape=1.1.0 doorkeeper=5.0.2
-- rails=5.0.7.1 grape=1.2.3 doorkeeper=5.0.2
-- rails=5.1.6.1 grape=1.0.0 doorkeeper=4.4.3
-- rails=5.1.6.1 grape=1.1.0 doorkeeper=4.4.3
-- rails=5.1.6.1 grape=1.2.3 doorkeeper=4.4.3
-- rails=5.1.6.1 grape=1.0.0 doorkeeper=5.0.2
-- rails=5.1.6.1 grape=1.1.0 doorkeeper=5.0.2
-- rails=5.1.6.1 grape=1.2.3 doorkeeper=5.0.2
-- rails=5.2.2 grape=1.0.0 doorkeeper=4.4.3
-- rails=5.2.2 grape=1.1.0 doorkeeper=4.4.3
-- rails=5.2.2 grape=1.2.3 doorkeeper=4.4.3
-- rails=5.2.2 grape=1.0.0 doorkeeper=5.0.2
-- rails=5.2.2 grape=1.1.0 doorkeeper=5.0.2
-- rails=5.2.2 grape=1.2.3 doorkeeper=5.0.2
+  matrix:
+    - rails=4.2.11 grape=0.16.2 doorkeeper=3.1.0
+    - rails=4.2.11 grape=0.16.2 doorkeeper=4.2.6
+    - rails=4.2.11 grape=1.1.0 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=0.16.2 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=0.19.2 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=1.0.0 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=1.1.0 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=1.2.3 doorkeeper=4.4.3
+    - rails=5.0.7.1 grape=1.0.0 doorkeeper=5.0.2
+    - rails=5.0.7.1 grape=1.1.0 doorkeeper=5.0.2
+    - rails=5.0.7.1 grape=1.2.3 doorkeeper=5.0.2
+    - rails=5.1.6.1 grape=1.0.0 doorkeeper=4.4.3
+    - rails=5.1.6.1 grape=1.1.0 doorkeeper=4.4.3
+    - rails=5.1.6.1 grape=1.2.3 doorkeeper=4.4.3
+    - rails=5.1.6.1 grape=1.0.0 doorkeeper=5.0.2
+    - rails=5.1.6.1 grape=1.1.0 doorkeeper=5.0.2
+    - rails=5.1.6.1 grape=1.2.3 doorkeeper=5.0.2
+    - rails=5.2.2 grape=1.0.0 doorkeeper=4.4.3
+    - rails=5.2.2 grape=1.1.0 doorkeeper=4.4.3
+    - rails=5.2.2 grape=1.2.3 doorkeeper=4.4.3
+    - rails=5.2.2 grape=1.0.0 doorkeeper=5.0.2
+    - rails=5.2.2 grape=1.1.0 doorkeeper=5.0.2
+    - rails=5.2.2 grape=1.2.3 doorkeeper=5.0.2
+  global:
+    CC_TEST_REPORTER_ID=ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
+script:
+  - bundle exec rubocop -DESP           # Backend linting
+  - bundle exec rake                    # Backend specs
 
-addons:
-  code_climate:
-    repo_token: ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
-  after_success:
-    - bundle exec codeclimate-test-reporter
+# Pipe the coverage data to Code Climate
+after_script:
+  - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/backend/.resultset.json # Format backend coverage
+  - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/frontend/lcov.info  # Format frontend coverage
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2                  # Sum both coverage parts into coverage/codeclimate.json
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 
 notifications:
   hipchat:
