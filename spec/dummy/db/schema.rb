@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140915160601) do
     t.text 'redirect_uri', null: false
     t.datetime 'created_at'
     t.datetime 'updated_at'
+    t.boolean "confidential", default: true, null: false
   end
 
   add_index 'oauth_applications', ['uid'], name: 'index_oauth_applications_on_uid', unique: true
