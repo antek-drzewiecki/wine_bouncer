@@ -24,10 +24,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 11.0'
   spec.add_development_dependency 'rspec-rails', '~> 3.5.0'
-  spec.add_development_dependency 'factory_girl', '~> 4.4.0'
+  spec.add_development_dependency 'factory_bot', '~> 4.8'
   spec.add_development_dependency 'generator_spec', '~> 0.9.0'
   spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'database_cleaner', '~> 1.3.0'
+  spec.add_development_dependency 'database_cleaner', '~> 1.6'
   spec.add_development_dependency 'rubocop', '0.58.2'
   spec.add_development_dependency 'yard', '~> 0.9.16'
+  spec.add_development_dependency 'simplecov'
 end

@@ -7,7 +7,7 @@ require 'spec_helper'
 require File.expand_path('../dummy/config/environment', __FILE__)
 require 'rspec/rails'
 require 'wine_bouncer'
-require 'factory_girl'
+require 'factory_bot'
 require 'database_cleaner'
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -46,7 +46,7 @@ end
 
 require "shared/orm/#{orm_name}"
 
-FactoryGirl.find_definitions
+FactoryBot.find_definitions
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -56,7 +56,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ApiHelper, type: :api
 
   config.use_transactional_fixtures = false
@@ -67,7 +67,7 @@ RSpec.configure do |config|
 
   config.before do
     DatabaseCleaner.start
-    FactoryGirl.lint
+    FactoryBot.lint
    # Doorkeeper.configure { orm :active_record }
   end
 

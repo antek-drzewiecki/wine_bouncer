@@ -4,10 +4,10 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedSwaggerApiUnderTest, type: :api do
-  let(:user) { FactoryGirl.create :user }
-  let(:token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
-  let(:unscoped_token) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { FactoryGirl.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
+  let(:user) { FactoryBot.create :user }
+  let(:token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
+  let(:unscoped_token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
+  let(:custom_scope) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
 
   before(:example) do
     WineBouncer.configure do |c|
