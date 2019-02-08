@@ -3,6 +3,11 @@ Changelog
 
 ## Unreleased
 
+## 1.0.4
+
+* [#78](https://github.com/antek-drzewiecki/wine_bouncer/pull/78): Grape support for 1.2.x. Thank you @eitoball
+* [#77](https://github.com/antek-drzewiecki/wine_bouncer/pull/77): Upgrade to doorkeeper 5.0. Thank you @JWesorick 
+
 ## 1.0.3
 * [#76](https://github.com/antek-drzewiecki/wine_bouncer/pull/76): Updated test matrix to test against recent versions.
 * [#74](https://github.com/antek-drzewiecki/wine_bouncer/pull/74): Support for Doorkeeper < 5.0. Thanks @stereoscott

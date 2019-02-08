@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Antek Drzewiecki']
   spec.email         = ['a.drzewiecki@devsquare.nl']
   spec.summary       = %q{A Ruby gem that allows Oauth2 protection with Doorkeeper for Grape Api's}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/antek-drzewiecki/wine_bouncer'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
