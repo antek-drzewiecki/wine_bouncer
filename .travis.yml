@@ -15,36 +15,74 @@ cache:
   - bundler: true
 
 rvm:
-- 2.3.8
 - 2.4.5
 - 2.5.3
 - 2.6.0
-
-gemfile:
-  - gemfiles/Gemfile.doorkeeper-4.4
-  - gemfiles/Gemfile.doorkeeper-5.0
-  - gemfiles/Gemfile.doorkeeper-5.1
-  - gemfiles/Gemfile.doorkeeper-5.2
 
 env:
   global:
     CC_TEST_REPORTER_ID=ab1b6ce5f973da033f80ae2e99fadbb32b2f9c37892703956d8ef954c8e8134e
   jobs:
-    - rails="~> 5.1.6.1" grape=0.19.2
-    - rails="~> 5.1.6.1" grape=1.0.3
-    - rails="~> 5.1.6.1" grape=1.1.0
-    - rails="~> 5.1.6.1" grape=1.2.5
-    - rails="~> 5.1.6.1" grape=1.3.0
-    - rails="~> 5.2.4.1" grape=0.19.2
-    - rails="~> 5.2.4.1" grape=1.0.3
-    - rails="~> 5.2.4.1" grape=1.1.0
-    - rails="~> 5.2.4.1" grape=1.2.5
-    - rails="~> 5.2.4.1" grape=1.3.0
-    - rails="~> 6.0.2" grape=0.19.2
-    - rails="~> 6.0.2" grape=1.0.3
-    - rails="~> 6.0.2" grape=1.1.0
-    - rails="~> 6.0.2" grape=1.2.5
-    - rails="~> 6.0.2" grape=1.3.0
+    - rails="~> 5.1.6.1" grape=0.19.2 doorkeeper=4.4.3
+    - rails="~> 5.1.6.1" grape=0.19.2 doorkeeper=5.0.2
+    - rails="~> 5.1.6.1" grape=0.19.2 doorkeeper=5.1.0
+    - rails="~> 5.1.6.1" grape=0.19.2 doorkeeper=5.2.3
+    - rails="~> 5.1.6.1" grape=1.0.3 doorkeeper=4.4.3
+    - rails="~> 5.1.6.1" grape=1.0.3 doorkeeper=5.0.2
+    - rails="~> 5.1.6.1" grape=1.0.3 doorkeeper=5.1.0
+    - rails="~> 5.1.6.1" grape=1.0.3 doorkeeper=5.2.3
+    - rails="~> 5.1.6.1" grape=1.1.0 doorkeeper=4.4.3
+    - rails="~> 5.1.6.1" grape=1.1.0 doorkeeper=5.0.2
+    - rails="~> 5.1.6.1" grape=1.1.0 doorkeeper=5.1.0
+    - rails="~> 5.1.6.1" grape=1.1.0 doorkeeper=5.2.3
+    - rails="~> 5.1.6.1" grape=1.2.5 doorkeeper=4.4.3
+    - rails="~> 5.1.6.1" grape=1.2.5 doorkeeper=5.0.2
+    - rails="~> 5.1.6.1" grape=1.2.5 doorkeeper=5.1.0
+    - rails="~> 5.1.6.1" grape=1.2.5 doorkeeper=5.2.3
+    - rails="~> 5.1.6.1" grape=1.3.0 doorkeeper=4.4.3
+    - rails="~> 5.1.6.1" grape=1.3.0 doorkeeper=5.0.2
+    - rails="~> 5.1.6.1" grape=1.3.0 doorkeeper=5.1.0
+    - rails="~> 5.1.6.1" grape=1.3.0 doorkeeper=5.2.3
+    - rails="~> 5.2.4.1" grape=0.19.2 doorkeeper=4.4.3
+    - rails="~> 5.2.4.1" grape=0.19.2 doorkeeper=5.0.2
+    - rails="~> 5.2.4.1" grape=0.19.2 doorkeeper=5.1.0
+    - rails="~> 5.2.4.1" grape=0.19.2 doorkeeper=5.2.3
+    - rails="~> 5.2.4.1" grape=1.0.3 doorkeeper=4.4.3
+    - rails="~> 5.2.4.1" grape=1.0.3 doorkeeper=5.0.2
+    - rails="~> 5.2.4.1" grape=1.0.3 doorkeeper=5.1.0
+    - rails="~> 5.2.4.1" grape=1.0.3 doorkeeper=5.2.3
+    - rails="~> 5.2.4.1" grape=1.1.0 doorkeeper=4.4.3
+    - rails="~> 5.2.4.1" grape=1.1.0 doorkeeper=5.0.2
+    - rails="~> 5.2.4.1" grape=1.1.0 doorkeeper=5.1.0
+    - rails="~> 5.2.4.1" grape=1.1.0 doorkeeper=5.2.3
+    - rails="~> 5.2.4.1" grape=1.2.5 doorkeeper=4.4.3
+    - rails="~> 5.2.4.1" grape=1.2.5 doorkeeper=5.0.2
+    - rails="~> 5.2.4.1" grape=1.2.5 doorkeeper=5.1.0
+    - rails="~> 5.2.4.1" grape=1.2.5 doorkeeper=5.2.3
+    - rails="~> 5.2.4.1" grape=1.3.0 doorkeeper=4.4.3
+    - rails="~> 5.2.4.1" grape=1.3.0 doorkeeper=5.0.2
+    - rails="~> 5.2.4.1" grape=1.3.0 doorkeeper=5.1.0
+    - rails="~> 5.2.4.1" grape=1.3.0 doorkeeper=5.2.3
+    - rails="~> 6.0.2" grape=0.19.2 doorkeeper=4.4.3
+    - rails="~> 6.0.2" grape=0.19.2 doorkeeper=5.0.2
+    - rails="~> 6.0.2" grape=0.19.2 doorkeeper=5.1.0
+    - rails="~> 6.0.2" grape=0.19.2 doorkeeper=5.2.3
+    - rails="~> 6.0.2" grape=1.0.3 doorkeeper=4.4.3
+    - rails="~> 6.0.2" grape=1.0.3 doorkeeper=5.0.2
+    - rails="~> 6.0.2" grape=1.0.3 doorkeeper=5.1.0
+    - rails="~> 6.0.2" grape=1.0.3 doorkeeper=5.2.3
+    - rails="~> 6.0.2" grape=1.1.0 doorkeeper=4.4.3
+    - rails="~> 6.0.2" grape=1.1.0 doorkeeper=5.0.2
+    - rails="~> 6.0.2" grape=1.1.0 doorkeeper=5.1.0
+    - rails="~> 6.0.2" grape=1.1.0 doorkeeper=5.2.3
+    - rails="~> 6.0.2" grape=1.2.5 doorkeeper=4.4.3
+    - rails="~> 6.0.2" grape=1.2.5 doorkeeper=5.0.2
+    - rails="~> 6.0.2" grape=1.2.5 doorkeeper=5.1.0
+    - rails="~> 6.0.2" grape=1.2.5 doorkeeper=5.2.3
+    - rails="~> 6.0.2" grape=1.3.0 doorkeeper=4.4.3
+    - rails="~> 6.0.2" grape=1.3.0 doorkeeper=5.0.2
+    - rails="~> 6.0.2" grape=1.3.0 doorkeeper=5.1.0
+    - rails="~> 6.0.2" grape=1.3.0 doorkeeper=5.2.3
 
 jobs:
   exclude:
