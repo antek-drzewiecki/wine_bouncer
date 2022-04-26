@@ -1,23 +1,45 @@
-# This is the configuration used to check the rubocop source code.
-
 inherit_from: .rubocop_todo.yml
+
+require:
+  - 'rubocop-rails'
+  - 'rubocop-rspec'
 
 AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'spec/dummy/**/*'
+    - 'gemfiles/*'
+
+  NewCops: enable
+  UseCache: true
+  SuggestExtensions: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - spec/**/*
+
+Layout/TrailingEmptyLines:
+  Enabled: true
+
+Metrics/AbcSize:
+  Max: 24
 
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - 'wine_bouncer.gemspec'
 
-LineLength:
-  Exclude:
-    - spec/**/*
-
-StringLiterals:
+RSpec/ExampleLength:
   Enabled: false
 
-TrailingBlankLines:
-  Enabled: true
+RSpec/MultipleExpectations:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'wine_bouncer.gemspec'

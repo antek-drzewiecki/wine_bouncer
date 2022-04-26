@@ -8,17 +8,17 @@ describe ::WineBouncer::AuthMethods do
       include ::WineBouncer::AuthMethods
     end.new
   end
-  let(:user) { FactoryBot.create(:user) }
-  let(:token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
+  let(:user) { create(:user) }
+  let(:token) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
 
-  context 'doorkeeper_access_token' do
+  describe 'doorkeeper_access_token' do
     it 'sets and gets a token' do
       tested_class.doorkeeper_access_token = token
       expect(tested_class.doorkeeper_access_token).to eq(token)
     end
   end
 
-  context 'has_resource_owner?' do
+  describe 'has_resource_owner?' do
     it 'gives true when the token has an resource owner' do
       tested_class.doorkeeper_access_token = token
 
@@ -37,7 +37,7 @@ describe ::WineBouncer::AuthMethods do
     end
   end
 
-  context 'has_doorkeeper_token?' do
+  describe 'has_doorkeeper_token?' do
     it 'returns true when the class has a token' do
       tested_class.doorkeeper_access_token = token
       expect(tested_class.has_doorkeeper_token?).to be true
@@ -48,7 +48,7 @@ describe ::WineBouncer::AuthMethods do
     end
   end
 
-  context 'client_credential_token?' do
+  describe 'client_credential_token?' do
     it 'return true if the doorkeeper token is aquired through client_credential authentication' do
       token.resource_owner_id = nil
       tested_class.doorkeeper_access_token = token
@@ -68,7 +68,7 @@ describe ::WineBouncer::AuthMethods do
     end
   end
 
-  context 'protected_endpoint?' do
+  describe 'protected_endpoint?' do
     it 'when set true it returns true' do
       tested_class.protected_endpoint = true
       expect(tested_class.protected_endpoint?).to be true
@@ -84,7 +84,7 @@ describe ::WineBouncer::AuthMethods do
     end
   end
 
-  context 'resource_owner' do
+  describe 'resource_owner' do
     it 'runs the configured block' do
       result = 'called block'
       foo = proc { result }

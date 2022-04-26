@@ -6,6 +6,7 @@ module WineBouncer
 
     class OAuthUnauthorizedError < StandardError
       attr_reader :response
+
       def initialize(response)
         super(response.try(:description))
         @response = response
@@ -14,6 +15,7 @@ module WineBouncer
 
     class OAuthForbiddenError < StandardError
       attr_reader :response
+
       def initialize(response)
         super(response.try(:description))
         @response = response

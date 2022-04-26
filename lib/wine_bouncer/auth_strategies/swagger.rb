@@ -22,7 +22,7 @@ module WineBouncer
       end
 
       def endpoint_authorizations
-         api_context.options[:route_options][:authorizations]
+        api_context.options[:route_options][:authorizations]
       end
 
       def authorization_type_oauth2
