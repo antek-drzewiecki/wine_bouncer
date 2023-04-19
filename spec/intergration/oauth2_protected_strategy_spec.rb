@@ -4,10 +4,10 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedProtectedApiUnderTest, type: :api do
-  let(:user) { create :user }
-  let(:token) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
-  let(:unscoped_token) { create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } # not a default scope
+  let(:user) { create(:user) }
+  let(:token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'public') }
+  let(:unscoped_token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: '') }
+  let(:custom_scope) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope') } # not a default scope
 
   before(:example) do
     WineBouncer.configure do |c|

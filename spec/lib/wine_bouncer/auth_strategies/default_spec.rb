@@ -3,11 +3,11 @@
 require 'rails_helper'
 require 'wine_bouncer/auth_strategies/default'
 
-describe ::WineBouncer::AuthStrategies::Default do
+describe WineBouncer::AuthStrategies::Default do
   subject(:klass) { described_class.new }
 
   let(:scopes) { %w[public private] }
-  let(:scopes_hash) { { scopes: scopes } }
+  let(:scopes_hash) { { scopes: } }
   let(:auth_context) { { route_options: { auth: scopes_hash } } }
 
   describe 'endpoint_authorizations' do

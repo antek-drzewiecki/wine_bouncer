@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'wine_bouncer/auth_strategies/swagger'
 
-describe ::WineBouncer::AuthStrategies::Swagger do
+describe WineBouncer::AuthStrategies::Swagger do
   subject(:klass) { described_class.new }
 
   let(:scopes) { [{ scope: 'private', description: 'anything' }, { scope: 'public', description: 'anything' }] }

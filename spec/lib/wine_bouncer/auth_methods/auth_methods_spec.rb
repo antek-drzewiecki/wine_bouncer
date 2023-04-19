@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-describe ::WineBouncer::AuthMethods do
+describe WineBouncer::AuthMethods do
   let(:tested_class) do
     Class.new do
-      include ::WineBouncer::AuthMethods
+      include WineBouncer::AuthMethods
     end.new
   end
   let(:user) { create(:user) }
-  let(:token) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
+  let(:token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'public') }
 
   describe 'doorkeeper_access_token' do
     it 'sets and gets a token' do

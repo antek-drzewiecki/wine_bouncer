@@ -17,6 +17,6 @@ gem "rubocop-rspec"
 gem "simplecov"
 gem "sqlite3"
 gem "yard"
-gem "grape", "~> 1.6.0"
+gem "grape", "~> 1.7.0"
 
 gemspec path: "../"

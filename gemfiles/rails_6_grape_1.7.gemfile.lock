@@ -109,7 +109,7 @@ GEM
       railties (>= 3.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    grape (1.6.2)
+    grape (1.7.0)
       activesupport
       builder
       dry-types (>= 1.1)
@@ -262,7 +262,7 @@ DEPENDENCIES
   database_cleaner (~> 2.0)
   factory_bot (~> 6.2)
   generator_spec (~> 0.9.0)
-  grape (~> 1.6.0)
+  grape (~> 1.7.0)
   rails (~> 6.1)
   railties
   rake (~> 13.0)

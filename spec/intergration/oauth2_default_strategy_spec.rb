@@ -4,10 +4,10 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedDefaultApiUnderTest, type: :api do
-  let(:user) { create :user }
-  let(:token) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
-  let(:unscoped_token) { create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } # not a default scope
+  let(:user) { create(:user) }
+  let(:token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'public') }
+  let(:unscoped_token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: '') }
+  let(:custom_scope) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope') } # not a default scope
 
   before(:example) do
     WineBouncer.configure do |c|
@@ -142,7 +142,7 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
 
     describe 'oauth2_dsl_multiple_scopes' do
       it 'allows call on the first scope' do
-        scope_token = create :clientless_access_token, resource_owner_id: user.id, scopes: 'multiple'
+        scope_token = create(:clientless_access_token, resource_owner_id: user.id, scopes: 'multiple')
         get '/default_api/oauth2_dsl_multiple_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{scope_token.token}"
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -151,7 +151,7 @@ describe Api::MountedDefaultApiUnderTest, type: :api do
       end
 
       it 'allows call on the second scope' do
-        scope_token = create :clientless_access_token, resource_owner_id: user.id, scopes: 'scopes'
+        scope_token = create(:clientless_access_token, resource_owner_id: user.id, scopes: 'scopes')
         get '/default_api/oauth2_dsl_multiple_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{scope_token.token}"
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
