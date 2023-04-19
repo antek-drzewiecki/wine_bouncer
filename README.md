@@ -10,27 +10,29 @@ WineBouncer uses minimal modification, to make the magic happen.
 
 Table of Contents
 =================
-  * [Requirements](#requirements)
-  * [Installation](#installation)
-  * [Upgrading](#upgrading)
-  * [Usage](#usage)
-    * [Easy DSL](#easy-dsl)
-    * [Authentication strategies](#authentication-strategies)
-      * [Default](#default)
-      * [Swagger](#swagger)
-      * [Protected](#protected)
-    * [Token information](#token-information)
-    * [Disable WineBouncer](#disable-winebouncer)
-  * [Exceptions and Exception handling](#exceptions-and-exception-handling)
-  * [Example Application](#example-application)
-  * [Development](#development)
-  * [Contributing](#contributing)
+- [WineBouncer](#winebouncer)
+- [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Upgrading](#upgrading)
+  - [Usage](#usage)
+    - [Easy DSL](#easy-dsl)
+    - [Authentication strategies](#authentication-strategies)
+      - [Default](#default)
+      - [Swagger](#swagger)
+      - [Protected](#protected)
+    - [Token information](#token-information)
+    - [Disable WineBouncer](#disable-winebouncer)
+  - [Exceptions and Exception handling](#exceptions-and-exception-handling)
+  - [Example/Template Application](#exampletemplate-application)
+  - [Development](#development)
+  - [Contributing](#contributing)
 
 
 ## Requirements
-- Ruby > 2.1
-- Doorkeeper > 1.4.0 and < 5
-- Grape > 0.10 and < 1.2
+- Ruby >= 3.0
+- Doorkeeper > 5
+- Grape > 1.6
 
 Please submit pull requests and Travis env bumps for newer dependency versions.
 
@@ -39,7 +41,7 @@ Please submit pull requests and Travis env bumps for newer dependency versions.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wine_bouncer', '~> 1.0.4'
+gem 'wine_bouncer', '~> 1.1.0'
 ```
 
 And then execute:
