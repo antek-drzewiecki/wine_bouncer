@@ -2,7 +2,6 @@
 
 module WineBouncer
   module AuthMethods
-
     def protected_endpoint=(protected)
       @protected_endpoint = protected
     end
@@ -12,7 +11,7 @@ module WineBouncer
     end
 
     def resource_owner
-       instance_eval(&WineBouncer.configuration.defined_resource_owner)
+      instance_eval(&WineBouncer.configuration.defined_resource_owner)
     end
 
     def client_credential_token?

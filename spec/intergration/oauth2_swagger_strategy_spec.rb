@@ -4,10 +4,10 @@ require 'rails_helper'
 require 'json'
 
 describe Api::MountedSwaggerApiUnderTest, type: :api do
-  let(:user) { FactoryBot.create :user }
-  let(:token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'public' }
-  let(:unscoped_token) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: '' }
-  let(:custom_scope) { FactoryBot.create :clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope' } #not a default scope
+  let(:user) { create(:user) }
+  let(:token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'public') }
+  let(:unscoped_token) { create(:clientless_access_token, resource_owner_id: user.id, scopes: '') }
+  let(:custom_scope) { create(:clientless_access_token, resource_owner_id: user.id, scopes: 'custom_scope') } # not a default scope
 
   before(:example) do
     WineBouncer.configure do |c|
@@ -19,7 +19,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'tokens and scopes' do
+  describe 'tokens and scopes' do
     it 'gives access when the token and scope are correct' do
       get '/swagger_api/protected', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
@@ -41,7 +41,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'unprotected endpoint' do
+  describe 'unprotected endpoint' do
     it 'allows to call an unprotected endpoint without token' do
       get '/swagger_api/unprotected'
 
@@ -62,7 +62,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'protected_without_scopes' do
+  describe 'protected_without_scopes' do
     it 'allows to call an protected endpoint without scopes' do
       get '/swagger_api/protected_without_scope', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
@@ -72,7 +72,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
       expect(json['hello']).to eq('protected unscoped world')
     end
 
-    it 'raises an error when an protected endpoint without scopes is called without token ' do
+    it 'raises an error when an protected endpoint without scopes is called without token' do
       expect { get '/swagger_api/protected_without_scope' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
     end
 
@@ -81,7 +81,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'oauth2 dsl' do
+  describe 'oauth2 dsl' do
     it 'allows to call an protected endpoint without scopes' do
       get '/swagger_api/oauth2_dsl', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 
@@ -91,11 +91,11 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
       expect(json['hello']).to eq('oauth2_dsl')
     end
 
-    it 'raises an error when an protected endpoint without scopes is called without token ' do
+    it 'raises an error when an protected endpoint without scopes is called without token' do
       expect { get '/swagger_api/oauth2_dsl' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
     end
 
-    context 'without parameters' do
+    describe 'without parameters' do
       it 'accepts tokens with default scopes' do
         get '/swagger_api/oauth2_dsl_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
         expect(last_response.status).to eq(200)
@@ -104,16 +104,16 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
         expect(json['hello']).to eq('oauth dsl default scopes')
       end
 
-      it 'raises an error when an protected endpoint without scopes is called without token ' do
+      it 'raises an error when an protected endpoint without scopes is called without token' do
         expect { get '/swagger_api/oauth2_dsl_default_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
       end
 
-      it 'raises an error when token scopes are not default scopes ' do
+      it 'raises an error when token scopes are not default scopes' do
         expect { get '/swagger_api/oauth2_dsl_default_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}" }.to raise_exception(WineBouncer::Errors::OAuthForbiddenError)
       end
     end
 
-    context 'custom scopes' do
+    describe 'custom scopes' do
       it 'accepts tokens with default scopes' do
         get '/swagger_api/oauth2_dsl_custom_scopes', nil, 'HTTP_AUTHORIZATION' => "Bearer #{custom_scope.token}"
         expect(last_response.status).to eq(200)
@@ -122,7 +122,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
         expect(json['hello']).to eq('oauth dsl custom scopes')
       end
 
-      it 'raises an error when an protected endpoint without scopes is called without token ' do
+      it 'raises an error when an protected endpoint without scopes is called without token' do
         expect { get '/swagger_api/oauth2_dsl_custom_scopes' }.to raise_exception(WineBouncer::Errors::OAuthUnauthorizedError)
       end
 
@@ -132,7 +132,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'not_described_world' do
+  describe 'not_described_world' do
     it 'allows to call an endpoint without description' do
       get '/swagger_api/not_described_world'
       expect(last_response.status).to eq(200)
@@ -142,7 +142,7 @@ describe Api::MountedSwaggerApiUnderTest, type: :api do
     end
   end
 
-  context 'resource_owner' do
+  describe 'resource_owner' do
     it 'is available in the endpoint' do
       get '/swagger_api/protected_user', nil, 'HTTP_AUTHORIZATION' => "Bearer #{token.token}"
 

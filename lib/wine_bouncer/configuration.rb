@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module WineBouncer
-
   class << self
     attr_accessor :configuration
   end
@@ -19,13 +18,18 @@ module WineBouncer
       require "wine_bouncer/auth_strategies/#{auth_strategy}"
     end
 
-    def define_resource_owner &block
+    def define_resource_owner(&block)
       raise(ArgumentError, 'define_resource_owner expects a block in the configuration') unless block_given?
+
       @defined_resource_owner = block
     end
 
     def defined_resource_owner
-      raise(Errors::UnconfiguredError, 'Please define define_resource_owner to configure the resource owner') unless @defined_resource_owner
+      unless @defined_resource_owner
+        raise(Errors::UnconfiguredError,
+              'Please define define_resource_owner to configure the resource owner')
+      end
+
       @defined_resource_owner
     end
 

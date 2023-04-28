@@ -11,7 +11,7 @@ module WineBouncer
                     end
       # case WineBouncer.configuration.auth_strategy
       # when :default
-      description[:auth] = { scopes: scopes }
+      description[:auth] = { scopes: }
       # when :swagger
       description[:authorizations] = { oauth2: scopes.map { |x| { scope: x } } }
       # end

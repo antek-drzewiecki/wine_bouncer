@@ -1,0 +1,56 @@
+name: Ruby
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel --format progress
+
+  rspec:
+    runs-on: ubuntu-latest
+    needs: ['rubocop']
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby-version: 3.0
+            gemfile: gemfiles/rails_6_grape_1.6.gemfile
+          - ruby-version: 3.0
+            gemfile: gemfiles/rails_6_grape_1.7.gemfile
+          - ruby-version: 3.1
+            gemfile: gemfiles/rails_6_grape_1.6.gemfile
+          - ruby-version: 3.1
+            gemfile: gemfiles/rails_6_grape_1.7.gemfile
+          - ruby-version: 3.2
+            gemfile: gemfiles/rails_6_grape_1.6.gemfile
+          - ruby-version: 3.2
+            gemfile: gemfiles/rails_6_grape_1.7.gemfile
+
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+    - name: Check out branch
+      uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      env:
+        RAILS_ENV: test
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: Run rspec
+      run: bundle exec rspec
