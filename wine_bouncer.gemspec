@@ -3,12 +3,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'wine_bouncer/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'wine_bouncer'
+  spec.name          = 'privy_wine_bouncer'
   spec.version       = WineBouncer::VERSION
-  spec.authors       = ['Antek Drzewiecki']
-  spec.email         = ['a.drzewiecki@devsquare.nl']
+  spec.authors       = ['Achmad Chun Chun']
+  spec.email         = ['achmad.chun@privy.id']
   spec.summary       = %q{A Ruby gem that allows Oauth2 protection with Doorkeeper for Grape Api's}
-  spec.homepage      = 'https://github.com/antek-drzewiecki/wine_bouncer'
+  spec.homepage      = 'https://github.com/privy-ruby/wine_bouncer_gem'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
